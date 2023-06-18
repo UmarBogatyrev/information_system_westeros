@@ -1,1 +1,0 @@
-Hi there! This is my first frontend experience.
