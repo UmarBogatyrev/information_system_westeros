@@ -1,10 +1,18 @@
 package com.westerostax.westerostax.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "lords")
+public class Lord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,30 +27,19 @@ public class User {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "district_id")
-    private District district;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lord_id")
-    private Lord lord;
-
     // Конструкторы
 
-    public User() {
-
+    public Lord() {
     }
 
-    public User(String name, String username, String password, District district, Region region, Lord lord) {
+    public Lord(String name, String username, String password, Region region) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.district = district;
         this.region = region;
-        this.lord = lord;
     }
 
     // Геттеры и сеттеры
@@ -79,27 +76,11 @@ public class User {
         this.password = password;
     }
 
-    public District getDistrictId() {
-        return district;
-    }
-
-    public void setDistrictId(District district) {
-        this.district = district;
-    }
-
-    public Region getRegionId() {
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegionId(Region region) {
+    public void setRegion(Region region) {
         this.region = region;
-    }
-
-    public Lord getLordId() {
-        return lord;
-    }
-
-    public void setLordId(Lord lord) {
-        this.lord = lord;
     }
 }
