@@ -1,8 +1,9 @@
-package com.westerostax.westerostax.repository;
+package com.westerostax.westerostax.repositories;
 
-import com.westerostax.westerostax.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.westerostax.westerostax.entity.User;
+
 public interface UserRepository extends JpaRepository<User, Integer> {
-    
+
 }
