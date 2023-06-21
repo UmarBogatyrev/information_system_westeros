@@ -1,10 +1,11 @@
 package com.westerostax.westerostax.services;
 
-import com.westerostax.westerostax.models.Region;
-import com.westerostax.westerostax.repository.RegionRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.westerostax.westerostax.entity.Region;
+import com.westerostax.westerostax.repositories.RegionRepository;
 
 @Service
 public class RegionService {

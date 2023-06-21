@@ -1,4 +1,4 @@
-package com.westerostax.westerostax.models;
+package com.westerostax.westerostax.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

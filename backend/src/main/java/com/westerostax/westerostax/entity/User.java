@@ -1,4 +1,4 @@
-package com.westerostax.westerostax.models;
+package com.westerostax.westerostax.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "lords")
-public class Lord {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,19 +27,30 @@ public class Lord {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "district_id")
+    private District district;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lord_id")
+    private Lord lord;
+
     // Конструкторы
 
-    public Lord() {
+    public User() {
+
     }
 
-    public Lord(String name, String username, String password, Region region) {
+    public User(String name, String username, String password, District district, Region region, Lord lord) {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.district = district;
         this.region = region;
+        this.lord = lord;
     }
 
     // Геттеры и сеттеры
@@ -76,11 +87,27 @@ public class Lord {
         this.password = password;
     }
 
-    public Region getRegion() {
+    public District getDistrictId() {
+        return district;
+    }
+
+    public void setDistrictId(District district) {
+        this.district = district;
+    }
+
+    public Region getRegionId() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegionId(Region region) {
         this.region = region;
+    }
+
+    public Lord getLordId() {
+        return lord;
+    }
+
+    public void setLordId(Lord lord) {
+        this.lord = lord;
     }
 }

@@ -1,10 +1,11 @@
 package com.westerostax.westerostax.services;
 
-import com.westerostax.westerostax.models.Household;
-import com.westerostax.westerostax.repository.HouseholdRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.westerostax.westerostax.entity.Household;
+import com.westerostax.westerostax.repositories.HouseholdRepository;
 
 @Service
 public class HouseholdService {
