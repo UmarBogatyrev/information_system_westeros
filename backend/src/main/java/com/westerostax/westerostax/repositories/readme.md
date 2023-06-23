@@ -1,1 +1,1 @@
-Методы для доступа к данным таблиц.
+### Methods for accessing table data.

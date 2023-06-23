@@ -1,15 +1,21 @@
 package com.westerostax.westerostax.controllers;
 
-import com.westerostax.westerostax.entity.Message;
-import com.westerostax.westerostax.entity.User;
-import com.westerostax.westerostax.services.UserService;
-import com.westerostax.westerostax.entity.MessageThread;
-import com.westerostax.westerostax.entity.Lord;
-import com.westerostax.westerostax.services.MessageService;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.westerostax.westerostax.entity.Lord;
+import com.westerostax.westerostax.entity.Message;
+import com.westerostax.westerostax.entity.MessageThread;
+import com.westerostax.westerostax.entity.User;
+import com.westerostax.westerostax.services.MessageService;
+import com.westerostax.westerostax.services.UserService;
 
 @RestController
 @RequestMapping("/messages")
@@ -36,8 +42,7 @@ public class MessageController<userService> {
             @RequestParam Long senderId,
             @RequestParam Long recipientId,
             @RequestParam String subject,
-            @RequestParam String content
-    ) {
+            @RequestParam String content) {
         MessageThread thread = messageService.getMessageThreadById(threadId);
         User sender = userService.getUserById(senderId);
         Lord recipient = userService.getLordById(recipientId);
@@ -51,7 +56,4 @@ public class MessageController<userService> {
         List<Message> messages = messageService.getMessagesByThread(thread);
         return ResponseEntity.ok(messages);
     }
-
-    // Другие методы для взаимодействия с сообщениями
 }
-

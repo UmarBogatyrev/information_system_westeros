@@ -1,1 +1,1 @@
-Методы обработчики HTTP запросов для работы с пользователями и хозяйствами. Использовать сервисы.
+### HTTP request handler methods for working with users and farms. Use services.

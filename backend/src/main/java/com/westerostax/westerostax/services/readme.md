@@ -1,1 +1,1 @@
-Определяем методы для обработки операций с таблицами, которые хотим импортировать. для доступа к данным используем репозитории.
+### We define methods for processing operations with tables that we want to import. we use repositories to access data.
