@@ -36,7 +36,7 @@ public class LoginController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return "redirect:/dashboard";
+            return "redirect:/workflow";
         } catch (UsernameNotFoundException | BadCredentialsException e) {
             model.addAttribute("error", "Неверный логин или пароль");
             return "login";

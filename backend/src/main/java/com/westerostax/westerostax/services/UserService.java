@@ -2,6 +2,8 @@ package com.westerostax.westerostax.services;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.westerostax.westerostax.entity.Lord;
 import com.westerostax.westerostax.entity.User;
 import com.westerostax.westerostax.repositories.UserRepository;
@@ -9,8 +11,9 @@ import com.westerostax.westerostax.repositories.UserRepository;
 public class UserService {
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUserById(int id) {
@@ -34,6 +37,8 @@ public class UserService {
     }
 
     public void createUser(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         userRepository.createUser(user);
     }
 
@@ -50,6 +55,18 @@ public class UserService {
     }
 
     public Lord getLordById(Long lordId) {
+        return null;
+    }
+
+    private PasswordEncoder passwordEncoder;
+
+    public User authenticateUser(String username, String password) {
+        User user = userRepository.getUserByUsername(username);
+
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+
         return null;
     }
 }
