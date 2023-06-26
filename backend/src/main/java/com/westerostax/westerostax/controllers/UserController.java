@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.westerostax.westerostax.entity.User;
 import com.westerostax.westerostax.repositories.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/users")
@@ -21,6 +24,22 @@ public class UserController {
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password,
+            HttpSession session) {
+        // Здесь должен быть код для проверки введенных данных пользователя и выполнения
+        // авторизации
+        // ...
+
+        // Пример проверки имени пользователя и пароля (замените на вашу логику):
+        if (username.equals("admin") && password.equals("password")) {
+            session.setAttribute("username", username);
+            return "redirect:/dashboard"; // Перенаправление на страницу панели управления после успешной авторизации
+        } else {
+            return "redirect:/login?error=1"; // Перенаправление на страницу входа с сообщением об ошибке
+        }
     }
 
     @GetMapping

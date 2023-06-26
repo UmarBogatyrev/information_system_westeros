@@ -1,4 +1,5 @@
 package com.westerostax.westerostax.services;
+
 import java.util.List;
 
 import com.westerostax.westerostax.entity.Lord;
@@ -52,4 +53,3 @@ public class UserService {
         return null;
     }
 }
-
