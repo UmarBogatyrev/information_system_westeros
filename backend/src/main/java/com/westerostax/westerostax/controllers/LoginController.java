@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.westerostax.westerostax.repositories.UserRepository;
+
 @Controller
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
 
-    public LoginController(AuthenticationManager authenticationManager) {
+    public LoginController(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
     }
 

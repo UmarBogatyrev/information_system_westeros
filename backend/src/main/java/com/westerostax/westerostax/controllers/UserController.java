@@ -29,11 +29,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password,
             HttpSession session) {
-        // Здесь должен быть код для проверки введенных данных пользователя и выполнения
-        // авторизации
-        // ...
 
-        // Пример проверки имени пользователя и пароля (замените на вашу логику):
         if (username.equals("admin") && password.equals("password")) {
             session.setAttribute("username", username);
             return "redirect:/dashboard"; // Перенаправление на страницу панели управления после успешной авторизации
