@@ -232,7 +232,29 @@
         rotated = !rotated;
       }
     </script>
-
+  <script>
+    // Код JavaScript для заполнения таблицы данными
+    fetch('/households')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('.tbody-main');
+        data.forEach((household, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${household.name}</td>
+            <td>${household.address}</td>
+            <td>${household.residentCount}</td>
+            <td>${household.annualIncome}</td>
+            <td>${household.area}</td>
+            <td>${household.cattleCount}</td>
+            <td><button class="btn btn-primary">Действие</button></td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
 
   
 </body>
