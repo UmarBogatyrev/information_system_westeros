@@ -2,6 +2,7 @@ package com.westerostax.westerostax.controllers;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.westerostax.westerostax.entity.Household;
 import com.westerostax.westerostax.repositories.HouseholdRepository;
 
+@Controller
 @RestController
 @RequestMapping("/households")
 public class HouseholdController {
@@ -21,6 +24,14 @@ public class HouseholdController {
 
     public HouseholdController(HouseholdRepository householdRepository) {
         this.householdRepository = householdRepository;
+    }
+
+    @GetMapping("/table")
+    public ModelAndView getHouseholdTable() {
+        List<Household> households = householdRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView("table"); // Имя представления
+        modelAndView.addObject("households", households);
+        return modelAndView;
     }
 
     @GetMapping
