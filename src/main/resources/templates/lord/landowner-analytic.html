@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Portfolio Details - Squadfree Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style-landowner.css" rel="stylesheet">
+
+</head>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
+      <div class="logo">
+          <img src="assets/img/Logo.png" alt="">
+      </div>
+      <ul class="menu-list">
+        <li class="menu-list-item"><a class="menu-list-a" href="landowner-workflow.html">Главная</a></li>
+        <li class="menu-list-item"><a class="menu-list-a" href="landowner-analytic.html">Аналитика</a></li>
+        <li class="menu-list-item"><a class="menu-list-a" href="landowner-taxes.html">Налоги</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow">
+            <i class="fas fa-envelope fa-fw">
+              <img class="img-profile rounded-circle" src="assets/img/profile_icon.png">
+            </i>
+            <span class="badge badge-danger">7</span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jake Fisher</span>
+            <a class="nav-item" href="#" id="userDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img  id="image" class="img-profile-menu" src="assets/img/group.png" onclick="rotateImage()">
+
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu animated--grow-in"
+              aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="message.html">
+                <img class="img-profile" src="assets/img/Mail.png">
+                <strong class="dropdown-text">Сообщение</strong>
+                <span class="badge-menu">7</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <img class="img-profile" src="assets/img/Settings.png">
+              <strong class="dropdown-text">Настройки</strong>
+            </a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+              <img class="img-profile" src="assets/img/Exit.png"> 
+              <strong class="dropdown-text">Выход</strong>
+            </a>
+                
+            </a>
+        </div>
+        </li>
+
+    </ul>
+
+
+    </nav>
+  </header><!-- End Header -->
+
+  <div class="page-content">
+    <main id="articles" class = "articles">
+
+      <h2 class="work">Аналитика</h2>
+          <!-- DataTales Example -->
+          <div class="table-container">
+            <div class="sort-bar">
+              <div class="sort-bar-title">Сортировать&nbsp;
+                <div class="sort-bar-list">по номеру хозяйства</div> 
+              </div> 
+              <div class="sort-bar-title-one">Отоброзить&nbsp;
+                <form action="" method="get">
+                  <div class="select-sort">
+                    <select name="sort" id="js-sort">
+                      <option value="date">278</option>
+                      <option value="price_asc">Сначало дешевые</option>
+                      <option value="price_desc">Сначало дорогие</option>
+                      <option value="type">Тип номера</option>
+                      <option value="food">Питание</option>
+                    </select>
+                  </div>  
+                </form>
+                &nbsp;год
+              </div> 
+            </div> 
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Хозяйство</th>
+                  <th>Адрес</th>
+                  <th>Число жителей</th>
+                  <th>Годовой доход</th>
+                  <th>Площаль хозяйств, m2</th>
+                  <th>Поголовье КРС</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tbody-main"></tbody>
+            </table>
+    <!-- /.container-fluid -->
+
+    </main><!-- End #main -->
+  </div>
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; 2023 Ravenflow. All rights reserved. <strong>
+    </div>
+  </footer><!-- End Footer -->
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Готовы выйти?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Выберите "Выйти" ниже, если вы готовы выйти из текущего сеанса.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Отменить</button>
+                    <a class="btn btn-primary" href="login.html">Выход</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Bootstrap core JavaScript-->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+
+
+    <script type="text/javascript">
+      let rotated = false;
+      function rotateImage() {
+        if (rotated) { 
+          document.getElementById('image').style.transform = 'rotate(0deg)';
+        }
+        else { 
+          document.getElementById('image').style.transform = 'rotate(90deg)';
+        }
+        rotated = !rotated;
+      }
+    </script>
+
+
+  
+</body>
+</html>
