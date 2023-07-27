@@ -1,45 +1,98 @@
 package itmo.WesterosTax.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import itmo.WesterosTax.model.District;
+import itmo.WesterosTax.model.Region;
 import itmo.WesterosTax.model.User;
 import itmo.WesterosTax.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@RestController  
-@RequestMapping("/users")  
-public class UserController {  
-    private final UserService userService;  
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/createLord")
+    public ResponseEntity<User> createLord(@RequestBody CreateUserRequest createUserRequest, Region region) {
+        User lord = userService.createLord(createUserRequest.getName(), createUserRequest.getUsername(),
+                createUserRequest.getPassword(), region);
+        return ResponseEntity.ok(lord);
+    }
+
+    @PostMapping("/createLandowner")
+    public ResponseEntity<User> createLandowner(@RequestBody CreateUserRequest createUserRequest,
+                                                District district, User lord) {
+        User landowner = userService.createLandowner(createUserRequest.getName(),
+                createUserRequest.getUsername(), createUserRequest.getPassword(), district, lord);
+        return ResponseEntity.ok(landowner);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+        User authenticatedUser = userService.findByUsernameAndPassword(loginRequest.getUsername(),
+                loginRequest.getPassword());
+        if (authenticatedUser != null) {
+            return ResponseEntity.ok(authenticatedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Дополнительные методы для работы с пользователями
+}
+
+class CreateUserRequest {
+    private String name;
+    private String username;
+    private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+class LoginRequest {
+    private String username;
+    private String password;
    
-    public UserController(UserService userService) {  
-        this.userService = userService;  
-    }  
-    
-    @GetMapping  
-    public List<User> getAllUsers() {  
-        return userService.getAllUsers();  
-    }  
-    
-    @GetMapping("/{id}")  
-    public Optional<User> getUserById(@PathVariable Long id) {  
-        return userService.getUserById(id);  
-    }  
-    
-    @PostMapping  
-    public User saveUser(@RequestBody User user) {  
-        return userService.saveUser(user);  
-    }  
-    
-    @DeleteMapping("/{id}")  
-    public void deleteUser(@PathVariable Long id) {  
-        userService.deleteUser(id);  
-    }  
-}  
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
