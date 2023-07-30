@@ -70,4 +70,12 @@ public class User {
     public void setLord(User lord) {
         this.lord = lord;
     }
+
+    public String getUsername() {
+        return null;
+    }
+
+    public String getPassword() {
+        return null;
+    }
 }
