@@ -83,4 +83,8 @@ public class User {
     public String getPassword() {
         return null;
     }
+
+    public String getRole() {
+        return null;
+    }
 }
