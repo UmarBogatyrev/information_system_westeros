@@ -5,6 +5,8 @@ import ru.itmo.WesterosTax.model.Region;
 import ru.itmo.WesterosTax.model.User;
 import ru.itmo.WesterosTax.repository.UserRepository;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,6 +43,14 @@ public class UserService implements UserDetailsService {
 
     public User findByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    
+    public List<User> findByRole(String role) {
+        return userRepository.findByRole(role);
     }
 
     @Override
