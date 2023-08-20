@@ -1,3 +1,6 @@
+package ru.itmo.WesterosTax.security;
+
+
 // package ru.itmo.WesterosTax.config;
 
 // import org.springframework.context.annotation.Bean;
