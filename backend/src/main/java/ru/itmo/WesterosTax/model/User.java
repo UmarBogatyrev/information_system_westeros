@@ -1,36 +1,43 @@
 package ru.itmo.WesterosTax.model;
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table( name = "users", 
+        uniqueConstraints = { 
+          @UniqueConstraint(columnNames = "username")
+        })
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
+    @NotBlank
     @Column(nullable = false, unique = true)
+    @Size(max = 20)
     private String username;
 
+    @NotBlank
     @Column(nullable = false)
+    @Size(max = 120)
     private String password;
-
-    @Column(nullable = false)
-    private String role; // Новое поле для хранения роли пользователя (LORD, LANDOWNER, COURIER)
 
     @ManyToOne
     @JoinColumn(name = "district_id")
@@ -48,43 +55,47 @@ public class User {
     @JoinColumn(name = "lord_id")
     private User lord;
 
-    public void setName(String name) {
-        this.name = name;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User() {
+    }
+  
+    public User(String username, String password) {
+      this.username = username;
+      this.password = password;
     }
 
-    public void setUsername(String username) {
+    public Long getId() {
+        return id;
+      }
+    
+      public void setId(Long id) {
+        this.id = id;
+      }
+    
+      public String getUsername() {
+        return username;
+      }
+    
+      public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
+      }
+    
+      public String getPassword() {
+        return password;
+      }
+    
+      public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public void setLord(User lord) {
-        this.lord = lord;
-    }
-
-    public String getUsername() {
-        return null;
-    }
-
-    public String getPassword() {
-        return null;
-    }
-
-    public String getRole() {
-        return null;
-    }
+      }
+    
+      public Set<Role> getRoles() {
+        return roles;
+      }
+    
+      public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+      }
 }
