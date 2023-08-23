@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import org.springframework.context.annotation.Scope;
 
 import ru.itmo.WesterosTax.security.jwt.AuthEntryPointJwt;
 import ru.itmo.WesterosTax.security.jwt.AuthTokenFilter;
@@ -57,20 +60,39 @@ public class WebSecurityConfig {
   }
   
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> 
-          auth.requestMatchers("/api/auth/**").permitAll()
-              .requestMatchers("/api/test/**").permitAll()
+  public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+    http
+        .authorizeHttpRequests((authorize) -> authorize 
+              .requestMatchers(mvc.pattern("/api/auth/**"), mvc.pattern("/api/test/**")).permitAll()
               .anyRequest().authenticated()
         );
-    
+        
     http.authenticationProvider(authenticationProvider());
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     
     return http.build();
   }
+  @Scope("prototype")
+	@Bean
+	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+		return new MvcRequestMatcher.Builder(introspector);
+	}
+  // @Bean
+  // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  //   http.csrf(csrf -> csrf.disable())
+  //       .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+  //       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+  //       .authorizeHttpRequests(auth -> 
+  //         auth.requestMatchers("/api/auth/**").permitAll()
+  //             .requestMatchers("/api/test/**").permitAll()
+  //             .anyRequest().authenticated()
+  //       );
+    
+  //   http.authenticationProvider(authenticationProvider());
+
+  //   http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    
+  //   return http.build();
+  // }
 }
