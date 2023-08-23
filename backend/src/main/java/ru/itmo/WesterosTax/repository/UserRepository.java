@@ -2,15 +2,12 @@ package ru.itmo.WesterosTax.repository;
 
 import ru.itmo.WesterosTax.model.User;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+  Optional<User> findByUsername(String username);
 
-    User findByUsernameAndPassword(String username, String password);
-
-    User findByUsername(String username);
-
-    List<User> findByRole(String role);
+  Boolean existsByUsername(String username);
 }
