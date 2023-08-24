@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +21,6 @@ import org.springframework.context.annotation.Scope;
 import ru.itmo.WesterosTax.security.jwt.AuthEntryPointJwt;
 import ru.itmo.WesterosTax.security.jwt.AuthTokenFilter;
 import ru.itmo.WesterosTax.security.services.UserDetailsServiceImpl;
-
 
 @Configuration
 @EnableMethodSecurity
@@ -41,14 +41,14 @@ public class WebSecurityConfig {
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
-      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-       
-      authProvider.setUserDetailsService(userDetailsService);
-      authProvider.setPasswordEncoder(passwordEncoder());
-   
-      return authProvider;
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+    authProvider.setUserDetailsService(userDetailsService);
+    authProvider.setPasswordEncoder(passwordEncoder());
+
+    return authProvider;
   }
- 
+
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
@@ -58,41 +58,47 @@ public class WebSecurityConfig {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
-    http
+    http.csrf(csrf -> csrf.disable())
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((authorize) -> authorize 
               .requestMatchers(mvc.pattern("/api/auth/**"), mvc.pattern("/api/test/**")).permitAll()
               .anyRequest().authenticated()
         );
-        
+      
     http.authenticationProvider(authenticationProvider());
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     
     return http.build();
   }
+
   @Scope("prototype")
-	@Bean
-	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
-		return new MvcRequestMatcher.Builder(introspector);
-	}
+  @Bean
+  MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+    return new MvcRequestMatcher.Builder(introspector);
+  }
   // @Bean
   // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  //   http.csrf(csrf -> csrf.disable())
-  //       .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-  //       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-  //       .authorizeHttpRequests(auth -> 
-  //         auth.requestMatchers("/api/auth/**").permitAll()
-  //             .requestMatchers("/api/test/**").permitAll()
-  //             .anyRequest().authenticated()
-  //       );
-    
-  //   http.authenticationProvider(authenticationProvider());
+  // http.csrf(csrf -> csrf.disable())
+  // .exceptionHandling(exception ->
+  // exception.authenticationEntryPoint(unauthorizedHandler))
+  // .sessionManagement(session ->
+  // session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+  // .authorizeHttpRequests(auth ->
+  // auth.requestMatchers("/api/auth/**").permitAll()
+  // .requestMatchers("/api/test/**").permitAll()
+  // .anyRequest().authenticated()
+  // );
 
-  //   http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    
-  //   return http.build();
+  // http.authenticationProvider(authenticationProvider());
+
+  // http.addFilterBefore(authenticationJwtTokenFilter(),
+  // UsernamePasswordAuthenticationFilter.class);
+
+  // return http.build();
   // }
 }
