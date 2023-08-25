@@ -19,10 +19,10 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${westerostax.app.jwtSecret}")
+  @Value("${app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${westerostax.app.jwtExpirationMs}")
+  @Value("${app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
