@@ -7,10 +7,12 @@ import Avatar from './Avatar'
 import MenuItem from './MenuItem'
 import { ImExit} from "react-icons/im";
 import { useOutsideClick } from './useOutsideClick'
+import { useRouter } from 'next/navigation'
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
+  
   const ref = useOutsideClick(() => setIsOpen(false));
 
   const toggleOpen = useCallback(() => {
@@ -87,9 +89,8 @@ const UserMenu = () => {
 								label='Настройки'
 							/>
 							<MenuItem
-								onClick={() => {}}
 								icons={<ImExit/>}
-								label='Выход'
+								label='Выход'				onClick={() => router.push('http://localhost:3000/login')}
 							/>
 						</>
 					</div>	
