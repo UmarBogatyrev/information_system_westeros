@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавлени хозяйства</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Courier"></div>
+<div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <h1 class="display-5 p-2">Добавление хозяйства</h1>
+    <form th:object="${household}" th:action="${'/household/create'}" method="post" class="form col-sm-2">
+        <label>Имя</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите имя хозяйства" type="text" class="form-control" th:field="*{name}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <label>Адрес</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите адрес хозяйства" type="text" class="form-control" th:field="*{address}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+        </div>
+        <label>Число жителей</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите число жителей" type="number" min="0" class="form-control" th:field="*{residentCount}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('residentCount')}" th:errors="*{residentCount}"></div>
+        </div>
+        <label>Доход</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите годовой доход" type="number" min="0" class="form-control" th:field="*{income}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('income')}" th:errors="*{income}"></div>
+        </div>
+        <label>Площадь</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите площадь" type="number" min="1" class="form-control" th:field="*{landArea}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('landArea')}" th:errors="*{landArea}"></div>
+        </div>
+        <label>КРС</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите поголовые КРС" type="number" min="0" class="form-control" th:field="*{cattleHeadcount}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('cattleHeadcount')}" th:errors="*{cattleHeadcount}"></div>
+        </div>
+        <label>Налоги</label>
+        <div class="form-group mt-2">
+            <input placeholder="Введите количество собранных налогов" type="number" min="0" class="form-control" th:field="*{taxesCollected}">
+            <div class="error text-danger" th:if="${#fields.hasErrors('taxesCollected')}" th:errors="*{taxesCollected}"></div>
+        </div>
+        <label>Название округа</label>
+        <div class="input-group mt-2">
+            <select th:field="*{district}" class="form-control">
+                <div th:each="district: ${districts}">
+                    <option th:value="${district.id}" th:text="${district.name}"/>
+                </div>
+            </select>
+        </div>
+        <div class="form-group pt-1 d-flex justify-content-center">
+            <button class="btn btn-success" type="submit">Добавить</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

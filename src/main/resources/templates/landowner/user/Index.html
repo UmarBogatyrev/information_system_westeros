@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Гонцы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Landowner"></div>
+<a class="btn btn-primary" href="/landowner/create" style="margin-bottom:0.5em">+</a>
+<table class="table table-bordered">
+    <thead class="bg-primary">
+    <tr>
+        <th scope="col" class="text-white text-center">№</th>
+        <th scope="col" class="text-white text-center">Логин</th>
+        <th scope="col" class="text-white text-center">Округ</th>
+        <th scope="col" class="text-white text-center">Регион</th>
+        <th scope="col" class="text-white text-center"></th>
+    </tr>
+    </thead>
+    <tbody th:each="courier : ${couriers}">
+    <tr>
+        <td class="text-black" th:text="${courier.id}"></td>
+        <td class="text-black" th:text="${courier.username}"></td>
+        <td class="text-black" th:text="${courier.district.name}"></td>
+        <td class="text-black" th:text="${courier.region.name}"></td>
+        <td>
+            <div class="btn-group">
+                <form th:action="@{/landowner/edit}" method="get">
+                    <button type="submit" style="margin-right: 30px;">
+                        <img width="20px" height="20px" src="/images/pen.png"/>
+                    </button>
+                    <input type="hidden" th:value="${courier.id}" name="user">
+                </form>
+                <form th:action="@{/landowner/courier/delete}" method="post">
+                    <button type="submit">
+                        <img width="20px" height="20px" src="/images/trash.png"/>
+                    </button>
+                    <input type="hidden" th:value="${courier.id}" name="user">
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
