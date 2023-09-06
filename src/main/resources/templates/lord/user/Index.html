@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Землевладельцы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Lord"></div>
+<a class="btn btn-danger" href="/lord/create" style="margin-bottom:0.5em">+</a>
+<table class="table table-bordered">
+    <thead class="bg-danger">
+    <tr>
+        <th scope="col" class="text-white text-center">№</th>
+        <th scope="col" class="text-white text-center">Логин</th>
+        <th scope="col" class="text-white text-center">Округ</th>
+        <th scope="col" class="text-white text-center">Регион</th>
+        <th scope="col" class="text-white text-center"></th>
+    </tr>
+    </thead>
+    <tbody th:each="landowner : ${landowners}">
+    <tr>
+        <td class="text-black" th:text="${landowner.id}"></td>
+        <td class="text-black" th:text="${landowner.username}"></td>
+        <td class="text-black" th:text="${landowner.district.name}"></td>
+        <td class="text-black" th:text="${landowner.region.name}"></td>
+        <td>
+            <div class="btn-group">
+                <form th:action="@{/lord/landowner/delete}" method="post">
+                    <button type="submit">
+                        <img width="20px" height="20px" src="/images/trash.png"/>
+                    </button>
+                    <input type="hidden" th:value="${landowner.id}" name="user">
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

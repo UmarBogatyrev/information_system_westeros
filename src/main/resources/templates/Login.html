@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Авторизация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body class="bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500">
+<main>
+    <div class="flex min-w-full min-h-full flex-col justify-center py-12  sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <img height="150" width="150" class="mx-auto w-auto" th:src="@{/images/Sigil(1).png}"/>
+            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Войдите в свою учетную запись</h2>
+        </div>
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%px-4 py-10 mb-[304px] shadow sm:rounded-lg sm:px-10">
+                <form class="space-y-6" th:action="@{/login}" method="post">
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="username">Логин</label>
+                    <input class="form-input block w-full rounded-md border-0 pl-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                           required id="username" name="username"/>
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="password">Пароль</label>
+                    <input class="form-input block w-full rounded-md border-0 pl-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                           required id="password" type="password" name="password"/>
+                    <div>
+                        <button class="w-full flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                                type="submit">Войти
+                        </button>
+                    </div>
+                    <div class="text-center md:block text-sm font-semibold py-3 px-0 text-[#fff]">
+                        Для восстановления логина и пароля обратитеcь в службу поддержки
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

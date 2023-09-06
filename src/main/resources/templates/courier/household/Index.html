@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Хозяйства</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Courier"></div>
+<a class="btn btn-success" href="/household/create" style="margin-bottom:0.5em">+</a>
+<table class="table table-bordered">
+    <thead class="bg-success">
+    <tr>
+        <th scope="col" class="text-white text-center">№</th>
+        <th scope="col" class="text-white text-center">Хозяйство</th>
+        <th scope="col" class="text-white text-center">Адрес</th>
+        <th scope="col" class="text-white text-center">Число жителей</th>
+        <th scope="col" class="text-white text-center">Годовой доход</th>
+        <th scope="col" class="text-white text-center">Площадь хозяйства, м<sup>2</sup></th>
+        <th scope="col" class="text-white text-center">Пологовые КРС</th>
+        <th scope="col" class="text-white text-center"></th>
+    </tr>
+    </thead>
+    <tbody th:each="household : ${households}">
+    <tr>
+        <td class="text-black" th:text="${household.id}"></td>
+        <td class="text-black" th:text="${household.name}"></td>
+        <td class="text-black" th:text="${household.address}"></td>
+        <td class="text-black" th:text="${household.residentCount}"></td>
+        <td class="text-black" th:text="${household.income}"></td>
+        <td class="text-black" th:text="${household.landArea}"></td>
+        <td class="text-black" th:text="${household.cattleHeadcount}"></td>
+        <td>
+            <div class="btn-group">
+                <form th:action="@{/household/edit}" method="get">
+                    <button type="submit" style="margin-right: 30px;">
+                        <img width="20px" height="20px" src="/images/pen.png"/>
+                    </button>
+                    <input type="hidden" th:value="${household.id}" name="household">
+                </form>
+                <form th:action="@{/household/delete}" method="post">
+                    <button type="submit">
+                        <img width="20px" height="20px" src="/images/trash.png"/>
+                    </button>
+                    <input type="hidden" th:value="${household.id}" name="household">
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
