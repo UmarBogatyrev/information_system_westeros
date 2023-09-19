@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Панель администратора</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
     <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
 </head>
+
 <body>
-<div th:insert="header/Admin"></div>
-<div class="d-flex flex-column align-items-center justify-content-center mt-3">
-    <h1 class="display-5 p-2">Добавление округа</h1>
-    <form th:object="${district}" th:action="${'/admin/createDistrict'}" method="post" class="form col-sm-2">
-        <label>Название</label>
-        <div class="form-group mt-2">
-            <input placeholder="Введите название" type="text" class="form-control" th:field="*{name}">
-            <div class="error text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-        </div>
-        <label>Название региона</label>
-        <div class="input-group mt-2">
-            <select th:field="*{region}" class="form-control">
-                <div th:each="region: ${regions}">
-                    <option th:value="${region.id}" th:text="${region.name}"/>
-                </div>
-            </select>
-        </div>
-        <div class="form-group pt-1 d-flex justify-content-center">
-            <button class="btn btn-success" type="submit">Добавить</button>
-        </div>
-    </form>
-</div>
+    <div th:insert="header/Admin"></div>
+    <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+        <h1 class="display-5 p-2">Добавление округа</h1>
+        <form th:object="${district}" th:action="${'/admin/createDistrict'}" method="post" class="form col-sm-2">
+            <label>Название</label>
+            <div class="form-group mt-2">
+                <input placeholder="Введите название округа" type="text" class="form-control" th:field="*{name}">
+                <div class="error text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+            <label class="pt-2">Выбор региона</label>
+            <div class="input-group mt-2">
+                <select th:field="*{region}" class="form-control">
+                    <div th:each="region: ${regions}">
+                        <option th:value="${region.id}" th:text="${region.name}" />
+                    </div>
+                </select>
+            </div>
+            <div class="form-group pt-1 d-flex justify-content-center">
+                <button class="btn btn-success mt-2" type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>
