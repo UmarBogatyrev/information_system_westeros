@@ -61,7 +61,7 @@ public class LandownerController {
         user.setLord(lord);
         user.setActive(true);
         userRepository.save(user);
-        return "redirect:/lord/index";
+        return "redirect:/landowner/index";
     }
 
     @PostMapping("delete")
