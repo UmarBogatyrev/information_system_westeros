@@ -40,9 +40,7 @@ public class AdminController {
     }
 
     @GetMapping("lord")
-    public String lord(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("regions", regionRepository.findAll());
-        model.addAttribute("districts", districtRepository.findAll());
+    public String lord(@ModelAttribute("user") User user) {
         return "admin/Lord";
     }
 
@@ -53,19 +51,18 @@ public class AdminController {
     }
 
     @GetMapping("region")
-    public String region(@ModelAttribute("region") Region region) {
+    public String region(@ModelAttribute("region") Region region, Model model) {
+        model.addAttribute("lords", userRepository.findByRolesContains(Role.ROLE_LORD));
         return "admin/Region";
     }
 
-    @PostMapping("registerLord")
+    @PostMapping("createLord")
     public String registerLord(@ModelAttribute("user") @Valid User user, BindingResult bindingResultUser, Model model) {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
         if (bindingResultUser.hasErrors()) {
-            model.addAttribute("regions", regionRepository.findAll());
-            model.addAttribute("districts", districtRepository.findAll());
             return "admin/Lord";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -76,8 +73,9 @@ public class AdminController {
     }
 
     @PostMapping("createDistrict")
-    public String createDistrict(@ModelAttribute("district") @Valid District district, BindingResult bindingResulDistrict) {
+    public String createDistrict(@ModelAttribute("district") @Valid District district, BindingResult bindingResulDistrict, Model model) {
         if (bindingResulDistrict.hasErrors()) {
+            model.addAttribute("regions", regionRepository.findAll());
             return "admin/District";
         }
         districtRepository.save(district);
@@ -85,8 +83,9 @@ public class AdminController {
     }
 
     @PostMapping("createRegion")
-    public String createRegion(@ModelAttribute("region") @Valid Region region, BindingResult bindingResulRegion) {
+    public String createRegion(@ModelAttribute("region") @Valid Region region, BindingResult bindingResulRegion, Model model) {
         if (bindingResulRegion.hasErrors()) {
+            model.addAttribute("lords", userRepository.findByRolesContains(Role.ROLE_LORD));
             return "admin/Region";
         }
         regionRepository.save(region);

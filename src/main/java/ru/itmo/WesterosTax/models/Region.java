@@ -1,6 +1,8 @@
 package ru.itmo.WesterosTax.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,7 +13,9 @@ public class Region {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank
+    @Size(max = 50, message = "Название региона должно быть от 1 до 50 символов")
+    @Column(unique = true)
     private String name;
 
     private int totalHouseholds;
@@ -22,18 +26,14 @@ public class Region {
 
     private double totalTaxesPaid;
 
+    @ManyToOne
+    @JoinColumn(name = "lordId")
+    private User lord;
+
     @OneToMany(mappedBy = "region")
     private List<District> districts;
 
     public Region() {
-    }
-
-    public Region(String name, int totalHouseholds, int totalCattleHeadcount, int totalResidents, double totalTaxesPaid) {
-        this.name = name;
-        this.totalHouseholds = totalHouseholds;
-        this.totalCattleHeadcount = totalCattleHeadcount;
-        this.totalResidents = totalResidents;
-        this.totalTaxesPaid = totalTaxesPaid;
     }
 
     public long getId() {
@@ -82,6 +82,14 @@ public class Region {
 
     public void setTotalTaxesPaid(double totalTaxesPaid) {
         this.totalTaxesPaid = totalTaxesPaid;
+    }
+
+    public User getLord() {
+        return lord;
+    }
+
+    public void setLord(User lord) {
+        this.lord = lord;
     }
 
     public List<District> getDistricts() {

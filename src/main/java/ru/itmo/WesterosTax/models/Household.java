@@ -1,6 +1,12 @@
 package ru.itmo.WesterosTax.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "households")
@@ -10,43 +16,37 @@ public class Household {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 50, message = "Название хозяйства должно быть от 1 до 50 символов")
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private String address;
 
-    @Column(nullable = false)
+    @NotNull
     private int residentCount;
 
-    @Column(nullable = false)
+    @NotNull
     private double income;
 
-    @Column(nullable = false)
+    @NotNull
     private double landArea;
 
-    @Column(nullable = false)
+    @NotNull
     private int cattleHeadcount;
+
+    @NotNull
+    private double taxesCollected;
+
+    @ManyToOne
+    @JoinColumn(name = "courierId")
+    private User courier;
 
     @ManyToOne
     @JoinColumn(name = "districtId")
     private District district;
 
-    @Column(nullable = false)
-    private double taxesCollected;
-
     public Household() {
-    }
-
-    public Household(String name, String address, int residentCount, double income, double landArea, int cattleHeadcount, District district, double taxesCollected) {
-        this.name = name;
-        this.address = address;
-        this.residentCount = residentCount;
-        this.income = income;
-        this.landArea = landArea;
-        this.cattleHeadcount = cattleHeadcount;
-        this.district = district;
-        this.taxesCollected = taxesCollected;
     }
 
     public long getId() {
@@ -105,19 +105,27 @@ public class Household {
         this.cattleHeadcount = cattleHeadcount;
     }
 
-    public District getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
-
     public double getTaxesCollected() {
         return taxesCollected;
     }
 
     public void setTaxesCollected(double taxesCollected) {
         this.taxesCollected = taxesCollected;
+    }
+
+    public User getCourier() {
+        return courier;
+    }
+
+    public void setCourier(User courier) {
+        this.courier = courier;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Налоги</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Landowner"></div>
+<div class="container flex-column align-items-center justify-content-center mt-3">
+    <h3 class="card-title text-dark text-center fw-bold">Налоги</h3>
+    <div th:each="taxtType: ${taxTypes}">
+        <div class="card mb-2" style="width: 54rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="card-title text-primary text-start" th:text="${taxtType.name}"></h4>
+                        <p class="fw-normal fs-6 card-text" th:text="${taxtType.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
