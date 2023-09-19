@@ -57,7 +57,7 @@ public class CourierController {
         user.setLandowner(landowner);
         user.setActive(true);
         userRepository.save(user);
-        return "redirect:/landowner/index";
+        return "redirect:/courier/index";
     }
 
     @PostMapping("delete")
