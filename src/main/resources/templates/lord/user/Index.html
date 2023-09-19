@@ -8,13 +8,12 @@
 </head>
 <body>
 <div th:insert="header/Lord"></div>
-<a class="btn btn-danger" href="/lord/create" style="margin-bottom:0.5em">+</a>
+<a class="btn btn-danger" href="/landowner/create" style="margin-bottom:0.5em">+</a>
 <table class="table table-bordered">
     <thead class="bg-danger">
     <tr>
         <th scope="col" class="text-white text-center">№</th>
         <th scope="col" class="text-white text-center">Логин</th>
-        <th scope="col" class="text-white text-center">Округ</th>
         <th scope="col" class="text-white text-center">Регион</th>
         <th scope="col" class="text-white text-center"></th>
     </tr>
@@ -23,11 +22,10 @@
     <tr>
         <td class="text-black" th:text="${landowner.id}"></td>
         <td class="text-black" th:text="${landowner.username}"></td>
-        <td class="text-black" th:text="${landowner.district.name}"></td>
         <td class="text-black" th:text="${landowner.region.name}"></td>
         <td>
             <div class="btn-group">
-                <form th:action="@{/lord/landowner/delete}" method="post">
+                <form th:action="@{/landowner/delete}" method="post">
                     <button type="submit">
                         <img width="20px" height="20px" src="/images/trash.png"/>
                     </button>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Аналитика</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Landowner"></div>
+<div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <table class="table table-bordered">
+        <thead class="bg-primary">
+        <tr>
+            <th scope="col" class="text-white text-center">Округ</th>
+            <th scope="col" class="text-white text-center">Население</th>
+            <th scope="col" class="text-white text-center">Число хозяйств</th>
+            <th scope="col" class="text-white text-center">Средник годовой доход хозяйства, L</th>
+            <th scope="col" class="text-white text-center">Жителей на хозяйство</th>
+            <th scope="col" class="text-white text-center">Среднее поголовье КРС</th>
+        </tr>
+        </thead>
+        <tbody th:each="district : ${districts}">
+        <tr>
+            <td class="text-black" th:text="${district.name}"></td>
+            <td class="text-black" th:text="${district.totalResidents}"></td>
+            <td class="text-black" th:text="${district.totalHouseholds}"></td>
+            <td class="text-black" th:text="${district.totalTaxesPaid/district.totalHouseholds}"></td>
+            <td class="text-black" th:text="${district.totalResidents/district.totalHouseholds}"></td>
+            <td class="text-black" th:text="${district.totalCattleHeadcount/district.totalHouseholds}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

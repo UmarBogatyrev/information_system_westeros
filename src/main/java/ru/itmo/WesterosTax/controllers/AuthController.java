@@ -21,8 +21,8 @@ public class AuthController {
     @PostMapping("/")
     public String getMainPage() {
         return switch (getRoleType(SecurityContextHolder.getContext().getAuthentication())) {
-            case ROLE_LORD -> "redirect:/lord/index";
-            case ROLE_LANDOWNER -> "redirect:/landowner/index";
+            case ROLE_LORD -> "redirect:/landowner/index";
+            case ROLE_LANDOWNER -> "redirect:/courier/index";
             case ROLE_COURIER -> "redirect:/household/index";
             case ROLE_ADMIN -> "redirect:/admin/lord";
         };
@@ -31,8 +31,8 @@ public class AuthController {
     @GetMapping("/")
     public String postMainPage() {
         return switch (getRoleType(SecurityContextHolder.getContext().getAuthentication())) {
-            case ROLE_LORD -> "redirect:/lord/index";
-            case ROLE_LANDOWNER -> "redirect:/landowner/index";
+            case ROLE_LORD -> "redirect:/landowner/index";
+            case ROLE_LANDOWNER -> "redirect:/courier/index";
             case ROLE_COURIER -> "redirect:/household/index";
             case ROLE_ADMIN -> "redirect:/admin/lord";
         };

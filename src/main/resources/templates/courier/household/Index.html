@@ -8,47 +8,157 @@
 </head>
 <body>
 <div th:insert="header/Courier"></div>
-<a class="btn btn-success" href="/household/create" style="margin-bottom:0.5em">+</a>
-<table class="table table-bordered">
-    <thead class="bg-success">
-    <tr>
-        <th scope="col" class="text-white text-center">№</th>
-        <th scope="col" class="text-white text-center">Хозяйство</th>
-        <th scope="col" class="text-white text-center">Адрес</th>
-        <th scope="col" class="text-white text-center">Число жителей</th>
-        <th scope="col" class="text-white text-center">Годовой доход</th>
-        <th scope="col" class="text-white text-center">Площадь хозяйства, м<sup>2</sup></th>
-        <th scope="col" class="text-white text-center">Пологовые КРС</th>
-        <th scope="col" class="text-white text-center"></th>
-    </tr>
-    </thead>
-    <tbody th:each="household : ${households}">
-    <tr>
-        <td class="text-black" th:text="${household.id}"></td>
-        <td class="text-black" th:text="${household.name}"></td>
-        <td class="text-black" th:text="${household.address}"></td>
-        <td class="text-black" th:text="${household.residentCount}"></td>
-        <td class="text-black" th:text="${household.income}"></td>
-        <td class="text-black" th:text="${household.landArea}"></td>
-        <td class="text-black" th:text="${household.cattleHeadcount}"></td>
-        <td>
-            <div class="btn-group">
-                <form th:action="@{/household/edit}" method="get">
-                    <button type="submit" style="margin-right: 30px;">
-                        <img width="20px" height="20px" src="/images/pen.png"/>
-                    </button>
-                    <input type="hidden" th:value="${household.id}" name="household">
-                </form>
-                <form th:action="@{/household/delete}" method="post">
-                    <button type="submit">
-                        <img width="20px" height="20px" src="/images/trash.png"/>
-                    </button>
-                    <input type="hidden" th:value="${household.id}" name="household">
-                </form>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <div th:if="${unfinishedCensus==null && unfinishedTax==null}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-secondary">
+                В данный момент не проводится перепись населения или сбор подати
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedCensus!=null}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-danger">
+                Внимание! Лорд издал указ о проведении переписи населения
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Дата начала переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateBegin}"></span>
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Дата завершения переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateEnd}"></span>
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Вы закреплены за следующим населенным пунктом:
+            </p>
+            <p class="fw-bold fs-5 card-text text-warning" th:text="${households[0].district.name}"></p>
+            <p class="fw-bold fs-6 card-text">
+                Вам следует прибыть в указанное место к началу проведения переписи
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedCensus!=null}" class="card border-dark mt-2" style="width: 54rem;">
+        <form th:if="${censusDistrict.status == 'created' || censusDistrict.status == 'unsubmitted'}" th:action="${'/census/createDistrict'}" method="post">
+            <input type="submit" class="btn btn-success" style="margin-bottom:1em" value="Отправить отчет">
+            <input type="hidden" name="census" th:value="${unfinishedCensus.id}"/>
+        </form>
+        <table class="table table-bordered">
+            <thead class="bg-success">
+            <tr>
+                <th scope="col" class="text-white text-center">Хозяйство</th>
+                <th scope="col" class="text-white text-center">Адрес</th>
+                <th scope="col" class="text-white text-center">Число жителей</th>
+                <th scope="col" class="text-white text-center">Годовой доход</th>
+                <th scope="col" class="text-white text-center">Площадь хозяйства, м<sup>2</sup></th>
+                <th scope="col" class="text-white text-center">Поголовье КРС</th>
+                <th scope="col" class="text-white text-center"></th>
+            </tr>
+            </thead>
+            <tbody th:each="household : ${households}">
+            <tr>
+                <td class="text-black" th:text="${household.name}"></td>
+                <td class="text-black" th:text="${household.address}"></td>
+                <td class="text-black" th:text="${household.residentCount}"></td>
+                <td class="text-black" th:text="${household.income}"></td>
+                <td class="text-black" th:text="${household.landArea}"></td>
+                <td class="text-black" th:text="${household.cattleHeadcount}"></td>
+                <td>
+                    <div class="btn-group">
+                        <form th:action="@{/household/edit}" method="get">
+                            <button type="submit" style="margin-right: 30px;">
+                                <img width="20px" height="20px" src="/images/pen.png"/>
+                            </button>
+                            <input type="hidden" th:value="${household.id}" name="household">
+                        </form>
+                        <form th:action="@{/household/delete}" method="post">
+                            <button type="submit">
+                                <img width="20px" height="20px" src="/images/trash.png"/>
+                            </button>
+                            <input type="hidden" th:value="${household.id}" name="household">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="/household/create" style="margin-bottom:0.5em">+</a>
+    </div>
+    <div th:if="${unfinishedTax!=null}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-danger">
+                Внимание! Лорд издал указ о сборе подати
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Дата начала сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateBegin}"></span>
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Дата завершения сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateEnd}"></span>
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                Вы закреплены за следующим населенным пунктом:
+            </p>
+            <p class="fw-bold fs-5 card-text text-warning" th:text="${households[0].district.name}"></p>
+            <p class="fw-bold fs-6 card-text">
+                Вам следует прибыть в указанное место к началу сбора
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedTax!=null}" class="card border-dark mt-2" style="width: 54rem;">
+        <form th:if="${taxDistrict.status == 'created' || taxDistrict.status == 'unsubmitted'}" th:action="${'/tax/createDistrict'}" method="post">
+            <input type="submit" class="btn btn-success" style="margin-bottom:1em" value="Отправить подать">
+            <input type="hidden" name="tax" th:value="${unfinishedTax.id}"/>
+        </form>
+        <table class="table table-bordered">
+            <thead class="bg-success">
+            <tr>
+                <th scope="col" class="text-white text-center">Хозяйство</th>
+                <th scope="col" class="text-white text-center">Адрес</th>
+                <th scope="col" class="text-white text-center">Сумма к оплате</th>
+            </tr>
+            </thead>
+            <tbody th:each="household : ${households}">
+            <tr>
+                <td class="text-black" th:text="${household.name}"></td>
+                <td class="text-black" th:text="${household.address}"></td>
+                <td class="text-black" th:text="${household.income}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${unfinishedCensus!=null && censusDistrict.status == 'submitted'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-success">
+                Землевладелец принял ваши данные. Вы успешно завершили перепись.
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedCensus!=null && censusDistrict.status == 'submitting'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-warning">
+                Ваши данные были отправлены землевладельцу. Ожидайте проверку.
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedTax!=null && taxDistrict.status == 'submitted'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-success">
+                Землевладелец принял собранный налог. Вы успешно завершили перепись.
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedTax!=null && taxDistrict.status == 'submitting'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Рабочий процесс</h3>
+            <p class="fw-bold fs-6 card-text text-warning">
+                Собранный налог был отправлен землевладельцу. Ожидайте проверку.
+            </p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование налога</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Lord"></div>
+<div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <h3 class="card-title text-dark text-center fw-bold">Налоги</h3>
+    <div class="card border-dark" style="width: 36rem;">
+        <div class="card-body">
+            <form th:object="${taxType}" th:action="${'/taxType/edit'}" method="post" class="form col-sm-12">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{lord}">
+                <label>Название</label>
+                <div class="form-group mt-2">
+                    <input placeholder="Введите название налога" type="text" class="form-control" th:field="*{name}">
+                    <div class="error text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <label>Формула расчета</label>
+                <div class="form-group mt-2">
+                    <input placeholder="Введите формулу расчета" type="text" class="form-control" th:field="*{formula}">
+                    <div class="error text-danger" th:if="${#fields.hasErrors('formula')}" th:errors="*{formula}"></div>
+                </div>
+                <label>Описание</label>
+                <div class="form-group mt-2">
+                    <input placeholder="Введите описание налога" type="text" class="form-control" th:field="*{description}">
+                    <div class="error text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+                <div class="row d-inline-flex justify-content-center mt-1">
+                    <div class="col">
+                        <a class="btn btn-secondary" href="/taxType/index" style="margin-bottom:0.5em">Отмена</a>
+                    </div>
+                    <div class="col">
+                        <input type="submit" class="btn btn-danger" value="Сохранить"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

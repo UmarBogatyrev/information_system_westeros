@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Аналитика</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+</head>
+<body>
+<div th:insert="header/Lord"></div>
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="bg-danger">
+        <tr>
+            <th scope="col" class="text-white text-center">Регион</th>
+            <th scope="col" class="text-white text-center">Население</th>
+            <th scope="col" class="text-white text-center">Число хозяйств</th>
+            <th scope="col" class="text-white text-center">Средник годовой доход хозяйства, L</th>
+            <th scope="col" class="text-white text-center">Жителей на хозяйство</th>
+            <th scope="col" class="text-white text-center">Среднее поголовье КРС</th>
+        </tr>
+        </thead>
+        <tbody th:each="region : ${regions}">
+        <tr>
+            <td class="text-black" th:text="${region.name}"></td>
+            <td class="text-black" th:text="${region.totalResidents}"></td>
+            <td class="text-black" th:text="${region.totalHouseholds}"></td>
+            <td class="text-black" th:text="${region.totalTaxesPaid/region.totalHouseholds}"></td>
+            <td class="text-black" th:text="${region.totalResidents/region.totalHouseholds}"></td>
+            <td class="text-black" th:text="${region.totalCattleHeadcount/region.totalHouseholds}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
