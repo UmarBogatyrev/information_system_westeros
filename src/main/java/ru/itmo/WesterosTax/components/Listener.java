@@ -17,6 +17,6 @@ public class Listener {
 
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
-//        UserSeeder.seed(userRepository);
+        UserSeeder.seed(userRepository);
     }
 }
