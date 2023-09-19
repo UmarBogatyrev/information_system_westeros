@@ -19,21 +19,20 @@ public class User {
     private String username;
 
     @NotBlank
-    @Column(nullable = false)
-    @Size(max = 120, message = "Пароль должен должно быть до 120 символов")
+    @Size(max = 120, min = 8, message = "Пароль должен должно быть от 8 до 120 символов")
     private String password;
 
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "districtId")
     private District district;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "regionId")
     private Region region;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "landownerId")
     private User landowner;
 
@@ -49,9 +48,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, boolean active, Set<Role> roles) {
         this.username = username;
         this.password = password;
+        this.active = active;
+        this.roles = roles;
     }
 
     public long getId() {

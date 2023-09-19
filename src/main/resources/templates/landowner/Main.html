@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="header/Landowner"></div>
+<div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <div class="card border-dark" style="width: 36rem;">
+        <div class="card-body">
+            <h3 class="card-title text-center">Статистика</h3>
+            <p class="fw-normal fs-5 card-text">
+                Население Западных земель, чел.: <span class="fw-bold fs-5 text-warning" th:if="${censusRegionLast!=null}" th:text="${censusRegionLast.totalResidentCount}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Число хозяйств: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}" th:text="${censusRegionLast.region.totalHouseholds}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                                                          th:text="${censusRegionLast.totalResidentCount/censusRegionLast.region.totalHouseholds}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                                                                th:text="${censusRegionLast.totalLandArea/censusRegionLast.region.totalHouseholds}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                                                          th:text="${censusRegionLast.totalCattleHeadcount/censusRegionLast.region.totalHouseholds}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Средняя сумма налогов к уплате: <span class="fw-bold fs-6 text-warning"
+                                                      th:if="${taxRegionLast!=null && censusRegionLast!=null && censusRegionLast.region.totalHouseholds!=0}"
+                                                      th:text="${taxRegionLast.totalIncome/censusRegionLast.region.totalHouseholds}"></span>
+            </p>
+            <p class="fw-normal fs-6 card-text">
+                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:text="${taxRegionLast.totalIncome}"></span>
+            </p>
+            <p class="fw-light fs-6 card-text">
+                Подробнее в разделе <a class="fw-normal fs-6 text-warning" href="/landowner/analytics">Аналитика</a>
+            </p>
+        </div>
+    </div>
+    <div class="card-group mt-2">
+        <div th:if="${unfinishedCensus!=null}" class="card border-dark" style="width: 36rem;">
+            <div class="card-body text-center">
+                <h3 class="card-title text-center">Перепись населения</h3>
+                <p class="fw-bold fs-6 card-text text-danger">
+                    Внимание! Лорд издал указ о проведении переписи населения
+                </p>
+                <p class="fw-bold fs-6 card-text">
+                    Дата начала переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateBegin}"></span>
+                </p>
+                <p class="fw-bold fs-6 card-text">
+                    Дата завершения переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateEnd}"></span>
+                </p>
+            </div>
+        </div>
+        <div th:if="${unfinishedTax!=null}" class="card border-dark" style="width: 36rem;">
+            <div class="card-body text-center">
+                <h3 class="card-title text-center">Сбор подати</h3>
+                <p class="fw-bold fs-6 card-text text-danger">
+                    Внимание! Лорд издал указ о сборе подати
+                </p>
+                <p class="fw-bold fs-6 card-text">
+                    Дата начала сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateBegin}"></span>
+                </p>
+                <p class="fw-bold fs-6 card-text">
+                    Дата завершения сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateEnd}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card-group mt-3">
+        <div class="card border-dark" style="width: 36rem;">
+            <div class="card-body">
+                <h3 class="card-title text-center">Перепись населения</h3>
+                <div class="form-group pt-1 d-flex justify-content-center">
+                    <div th:if="${unfinishedCensus==null}" class="justify-content-center text-center">
+                        <p class="fw-bold fs-6 text-secondary">В данный момент не производится перепись населения</p>
+                    </div>
+                    <div th:if="${unfinishedCensus!=null}">
+                        <table class="table table-bordered">
+                            <tbody th:each="censusDistrict : ${censusDistricts}">
+                            <tr th:classappend="|${censusDistrict.status=='created' ? 'bg-light' : ''} ${censusDistrict.status=='submitted' ? 'bg-success' : 'bg-warning'}|">
+                                <td class="justify-content-center text-center">
+                                    <p>
+                                        <span class="fw-normal fs-5" th:text="${censusDistrict.district.name}"></span>
+                                    </p>
+                                </td>
+                                <td th:if="${censusDistrict.status == 'submitting'}">
+                                    <div class="btn-group">
+                                        <form method="post" th:action="${'/census/submitDistrict'}">
+                                            <button type="submit">
+                                                <img src="/images/submit.png"/>
+                                                <input type="hidden" th:value="${censusDistrict.id}" name="censusDistrict">
+                                            </button>
+                                        </form>
+                                        <form method="post" th:action="${'/census/unsubmitDistrict'}">
+                                            <button type="submit">
+                                                <img src="/images/decline.png"/>
+                                                <input type="hidden" th:value="${censusDistrict.id}" name="censusDistrict">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <form th:if="${censusRegion.status == 'created' || censusRegion.status == 'unsubmitted'}" th:action="${'/census/createRegion'}" method="post">
+                            <input type="submit" class="btn btn-primary" style="margin-bottom:1em" value="Отправить отчет">
+                            <input type="hidden" name="censusRegion" th:value="${censusRegion.id}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-dark" style="width: 36rem;">
+            <div class="card-body">
+                <h3 class="card-title text-center">Сбор подати</h3>
+                <div class="form-group pt-1 d-flex justify-content-center">
+                    <div th:if="${unfinishedTax==null}" class="justify-content-center text-center">
+                        <p class="fw-bold fs-6 text-secondary">В данный момент не производится сбор подати</p>
+                    </div>
+                    <div th:if="${unfinishedTax!=null}">
+                        <table class="table table-bordered">
+                            <tbody th:each="taxDistrict : ${taxDistricts}">
+                            <tr th:classappend="|${taxDistrict.status=='created' ? 'bg-light' : ''} ${taxDistrict.status=='submitted' ? 'bg-success' : 'bg-warning'}|">
+                                <td class="justify-content-center text-center">
+                                    <p>
+                                        <span class="fw-normal fs-5" th:text="${taxDistrict.district.name}"></span>
+                                    </p>
+                                </td>
+                                <td th:if="${taxDistrict.status == 'submitting'}">
+                                    <div class="btn-group">
+                                        <form method="post" th:action="${'/tax/submitDistrict'}">
+                                            <button type="submit">
+                                                <img src="/images/submit.png"/>
+                                                <input type="hidden" th:value="${taxDistrict.id}" name="taxDistrict">
+                                            </button>
+                                        </form>
+                                        <form method="post" th:action="${'/tax/unsubmitDistrict'}">
+                                            <button type="submit">
+                                                <img src="/images/decline.png"/>
+                                                <input type="hidden" th:value="${taxDistrict.id}" name="taxDistrict">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <form th:if="${taxRegion.status == 'created' || taxRegion.status == 'unsubmitted'}" th:action="${'/tax/createRegion'}" method="post">
+                            <input type="submit" class="btn btn-primary" style="margin-bottom:1em" value="Отправить отчет">
+                            <input type="hidden" name="taxRegion" th:value="${taxRegion.id}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${unfinishedTax!=null && taxRegion.status == 'submitted'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Сбор подати</h3>
+            Лорд принял вашу подать. Вы успешно завершили сбор.
+            <p class="fw-bold fs-6 card-text text-success">
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedTax!=null && taxRegion.status == 'submitting'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Сбор подати</h3>
+            <p class="fw-bold fs-6 card-text text-warning">
+                Собранный налог был отправлен лорду. Ожидайте проверку.
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedCensus!=null && censusRegion.status == 'submitted'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Перепись населения</h3>
+            Лорд принял ваши данные. Вы успешно завершили перепись.
+            <p class="fw-bold fs-6 card-text text-success">
+            </p>
+        </div>
+    </div>
+    <div th:if="${unfinishedCensus!=null && censusRegion.status == 'submitting'}" class="card border-dark" style="width: 36rem;">
+        <div class="card-body text-center">
+            <h3 class="card-title text-center">Перепись населения</h3>
+            <p class="fw-bold fs-6 card-text text-warning">
+                Ваши данные были отправлены лорду. Ожидайте проверку.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

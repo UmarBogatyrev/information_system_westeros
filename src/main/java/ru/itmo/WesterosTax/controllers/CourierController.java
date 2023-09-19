@@ -14,54 +14,55 @@ import ru.itmo.WesterosTax.repositories.UserRepository;
 import javax.validation.Valid;
 import java.util.Collections;
 
-@RequestMapping("/lord")
+@RequestMapping("/courier")
 @Controller
-public class LordController {
+public class CourierController {
 
     private final PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
 
-    public LordController(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public CourierController(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 
     @GetMapping("index")
     public String index(Model model) {
-        User lord = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("landowners", userRepository.findByLord(lord));
-        return "lord/user/Index";
+        User landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("couriers", userRepository.findByLandowner(landowner));
+        return "landowner/user/Index";
     }
 
     @GetMapping("create")
-    public String create(@ModelAttribute("user") User user) {
-        return "lord/user/Create";
+    public String create(@ModelAttribute("user") User user, Model model) {
+        User  landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("districts", landowner.getRegion().getDistricts());
+        return "landowner/user/Create";
     }
 
-    @PostMapping("landowner/create")
-    public String createLandowner(@ModelAttribute("user") @Valid User user, BindingResult bindingResultUser, Model model) {
+    @PostMapping("createNew")
+    public String createCourier(@ModelAttribute("user") @Valid User user, BindingResult bindingResultUser, Model model) {
+        User  landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (userRepository.findByUsername(user.getUsername()) != null) {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
         if (bindingResultUser.hasErrors()) {
-            return "lord/user/Create";
+            model.addAttribute("districts", landowner.getRegion().getDistricts());
+            return "landowner/user/Create";
         }
-        User lord = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRegion(lord.getRegion());
-        user.setDistrict(lord.getDistrict());
-        user.setRoles(Collections.singleton(Role.ROLE_LANDOWNER));
-        user.setLord(lord);
+        user.setRoles(Collections.singleton(Role.ROLE_COURIER));
+        user.setLandowner(landowner);
         user.setActive(true);
         userRepository.save(user);
-        return "redirect:/lord/index";
+        return "redirect:/landowner/index";
     }
 
-    @PostMapping("landowner/delete")
-    public String deleteLandowner(@RequestParam User user) {
+    @PostMapping("delete")
+    public String deleteCourier(@RequestParam User user) {
         userRepository.delete(user);
-        return "redirect:/lord/index";
+        return "redirect:/landowner/index";
     }
 }

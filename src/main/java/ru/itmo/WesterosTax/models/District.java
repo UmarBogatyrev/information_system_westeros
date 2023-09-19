@@ -1,6 +1,10 @@
 package ru.itmo.WesterosTax.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "districts")
@@ -10,35 +14,30 @@ public class District {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 50, message = "Название округа должно быть от 1 до 50 символов")
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private int totalHouseholds;
 
-    @Column(nullable = false)
+    @NotNull
     private int totalCattleHeadcount;
 
-    @Column(nullable = false)
+    @NotNull
     private int totalResidents;
 
-    @Column(nullable = false)
+    @NotNull
     private double totalTaxesPaid;
 
     @ManyToOne
     @JoinColumn(name = "regionId")
     private Region region;
 
-    public District() {
-    }
+    @OneToMany(mappedBy = "district")
+    private List<Household> households;
 
-    public District(String name, int totalHouseholds, int totalCattleHeadcount, int totalResidents, double totalTaxesPaid, Region region) {
-        this.name = name;
-        this.totalHouseholds = totalHouseholds;
-        this.totalCattleHeadcount = totalCattleHeadcount;
-        this.totalResidents = totalResidents;
-        this.totalTaxesPaid = totalTaxesPaid;
-        this.region = region;
+    public District() {
     }
 
     public long getId() {
@@ -95,5 +94,13 @@ public class District {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public List<Household> getHouseholds() {
+        return households;
+    }
+
+    public void setHouseholds(List<Household> households) {
+        this.households = households;
     }
 }
