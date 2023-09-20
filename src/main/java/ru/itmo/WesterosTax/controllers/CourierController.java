@@ -63,6 +63,6 @@ public class CourierController {
     @PostMapping("delete")
     public String deleteCourier(@RequestParam User user) {
         userRepository.delete(user);
-        return "redirect:/landowner/index";
+        return "redirect:/courier/index";
     }
 }

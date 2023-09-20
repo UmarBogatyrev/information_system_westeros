@@ -38,7 +38,7 @@
                                                       th:text="${taxRegionLast.totalIncome/censusRegionLast.region.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:text="${taxRegionLast.totalIncome}"></span>
+                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:if="${taxRegionLast!=null}" th:text="${taxRegionLast.totalIncome}"></span>
             </p>
             <p class="fw-light fs-6 card-text">
                 Подробнее в разделе <a class="fw-normal fs-6 text-warning" href="/landowner/analytics">Аналитика</a>
