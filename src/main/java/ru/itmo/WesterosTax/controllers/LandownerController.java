@@ -67,6 +67,6 @@ public class LandownerController {
     @PostMapping("delete")
     public String deleteLandowner(@RequestParam User user) {
         userRepository.delete(user);
-        return "redirect:/lord/index";
+        return "redirect:/landowner/index";
     }
 }
