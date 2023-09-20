@@ -15,29 +15,29 @@
         <div class="card-body">
             <h3 class="card-title text-center">Статистика</h3>
             <p class="fw-normal fs-5 card-text">
-                Население Западных земель, чел.: <span class="fw-bold fs-5 text-warning" th:if="${censusLast.totalHouseholds!=0}" th:text="${censusLast.totalResidentCount}"></span>
+                Население Западных земель, чел.: <span class="fw-bold fs-5 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}" th:text="${censusLast.totalResidentCount}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Число хозяйств: <span class="fw-bold fs-6 text-warning" th:if="${censusLast.totalHouseholds!=0}" th:text="${censusLast.totalHouseholds}"></span>
+                Число хозяйств: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}" th:text="${censusLast.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast.totalHouseholds!=0}"
+                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
                                                           th:text="${censusLast.totalResidentCount/censusLast.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusLast.totalHouseholds!=0}"
+                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
                                                                 th:text="${censusLast.totalLandArea/censusLast.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast.totalHouseholds!=0}"
+                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
                                                           th:text="${censusLast.totalCattleHeadcount/censusLast.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Средняя сумма налогов к уплате: <span class="fw-bold fs-6 text-warning" th:if="${taxLast.totalIncome!=0 && censusLast.totalHouseholds!=0}"
+                Средняя сумма налогов к уплате: <span class="fw-bold fs-6 text-warning" th:if="${taxLast!=null && censusLast!=null && taxLast.totalIncome!=0 && censusLast.totalHouseholds!=0}"
                                                       th:text="${taxLast.totalIncome/censusLast.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:text="${taxLast.totalIncome}"></span>
+                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:if="${taxLast!=null}" th:text="${taxLast.totalIncome}"></span>
             </p>
             <p class="fw-light fs-6 card-text">
                 Подробнее в разделе <a class="fw-normal fs-6 text-warning" href="/lord/analytics">Аналитика</a>
