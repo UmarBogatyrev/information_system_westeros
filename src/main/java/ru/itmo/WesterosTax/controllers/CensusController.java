@@ -96,7 +96,7 @@ public class CensusController {
         census.setTotalHouseholds(census.getTotalHouseholds() + censusRegion.getRegion().getTotalHouseholds());
         censusRegion.setStatus("submitted");
         censusRepository.save(census);
-        return "redirect:/lord/main";
+        return "redirect:/landowner/main";
     }
 
     @PostMapping("unsubmitRegion")

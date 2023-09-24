@@ -58,6 +58,7 @@ public class HouseholdController {
         CensusDistrict censusDistrict = censusDistrictRepository.findByCensusRegionCensusAndDistrict(unfinishedCensus, courier.getDistrict());
         TaxDistrict taxDistrict = taxDistrictRepository.findByTaxRegionTaxAndDistrict(unfinishedTax, courier.getDistrict());
         model.addAttribute("households", courier.getDistrict().getHouseholds());
+        model.addAttribute("district", courier.getDistrict());
         model.addAttribute("censusDistrict", censusDistrict);
         model.addAttribute("taxDistrict", taxDistrict);
         return "courier/household/Index";
