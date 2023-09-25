@@ -21,15 +21,15 @@
                 Число хозяйств: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}" th:text="${censusRegionLast.region.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null&& censusRegionLast.region.totalHouseholds!=0}"
                                                           th:text="${censusRegionLast.totalResidentCount/censusRegionLast.region.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null&& censusRegionLast.region.totalHouseholds!=0}"
                                                                 th:text="${censusRegionLast.totalLandArea/censusRegionLast.region.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">
-                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null}"
+                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusRegionLast!=null&& censusRegionLast.region.totalHouseholds!=0}"
                                                           th:text="${censusRegionLast.totalCattleHeadcount/censusRegionLast.region.totalHouseholds}"></span>
             </p>
             <p class="fw-normal fs-6 card-text">

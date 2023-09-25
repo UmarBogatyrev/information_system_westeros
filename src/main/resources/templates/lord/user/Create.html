@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Добавлени землевладельца</title>
+    <title>Добавление землевладельца</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
     <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
@@ -10,7 +10,7 @@
 <div th:insert="header/Lord"></div>
 <div class="d-flex flex-column align-items-center justify-content-center mt-3">
     <h1 class="display-5 p-2">Добавление землевладельца</h1>
-    <form th:object="${user}" th:action="${'/landowner/createNew'}" method="post" class="form col-sm-2">
+    <form th:object="${user}" th:action="${'/landowner/create'}" method="post" class="form col-sm-2">
         <label>Логин</label>
         <div class="form-group mt-2">
             <input placeholder="Введите логин" type="text" class="form-control" th:field="*{username}">

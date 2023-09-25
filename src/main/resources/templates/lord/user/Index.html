@@ -31,6 +31,12 @@
                     </button>
                     <input type="hidden" th:value="${landowner.id}" name="user">
                 </form>
+                <form th:action="@{/landowner/edit}" method="get">
+                    <button type="submit">
+                        <img width="20px" height="20px" src="/images/pen.png"/>
+                    </button>
+                    <input type="hidden" th:value="${landowner.id}" name="user">
+                </form>
             </div>
         </td>
     </tr>

@@ -7,12 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import ru.itmo.WesterosTax.models.District;
 import ru.itmo.WesterosTax.models.Role;
 import ru.itmo.WesterosTax.models.User;
 import ru.itmo.WesterosTax.repositories.UserRepository;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @RequestMapping("/courier")
 @Controller
@@ -36,20 +39,40 @@ public class CourierController {
 
     @GetMapping("create")
     public String create(@ModelAttribute("user") User user, Model model) {
-        User  landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("districts", landowner.getRegion().getDistricts());
+        User landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Iterable<District> districts = landowner.getRegion().getDistricts();
+        Iterable<User> couriers = userRepository.findByLandowner(landowner);
+        List<District> districtList = new ArrayList<>();
+        for (User courier : couriers) {
+            for (District district : districts) {
+                if (courier.getDistrict() != district) {
+                    districtList.add(district);
+                }
+            }
+        }
+        model.addAttribute("districts", districtList);
         return "landowner/user/Create";
     }
 
-    @PostMapping("createNew")
+    @PostMapping("create")
     public String createCourier(@ModelAttribute("user") @Valid User user, BindingResult bindingResultUser, Model model) {
-        User  landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (userRepository.findByUsername(user.getUsername()) != null) {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
         if (bindingResultUser.hasErrors()) {
-            model.addAttribute("districts", landowner.getRegion().getDistricts());
+            Iterable<District> districts = landowner.getRegion().getDistricts();
+            Iterable<User> couriers = userRepository.findByLandowner(landowner);
+            List<District> districtList = new ArrayList<>();
+            for (User courier : couriers) {
+                for (District district : districts) {
+                    if (courier.getDistrict() != district) {
+                        districtList.add(district);
+                    }
+                }
+            }
+            model.addAttribute("districts", districtList);
             return "landowner/user/Create";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));

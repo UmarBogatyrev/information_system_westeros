@@ -13,6 +13,8 @@ public class PageController {
 
     private final UserRepository userRepository;
 
+    private final RegionRepository regionRepository;
+
     private final CensusRepository censusRepository;
 
     private final CensusRegionRepository censusRegionRepository;
@@ -27,14 +29,11 @@ public class PageController {
 
     private final TaxTypeRepository taxTypeRepository;
 
-    private final RegionRepository regionRepository;
-
-    private final DistrictRepository districtRepository;
-
-    public PageController(UserRepository userRepository, CensusRepository censusRepository, TaxRepository taxRepository, TaxTypeRepository taxTypeRepository,
-                          CensusRegionRepository censusRegionRepository, CensusDistrictRepository censusDistrictRepository, TaxRegionRepository taxRegionRepository,
-                          TaxDistrictRepository taxDistrictRepository, RegionRepository regionRepository, DistrictRepository districtRepository) {
+    public PageController(UserRepository userRepository, RegionRepository regionRepository, CensusRepository censusRepository, TaxRepository taxRepository,
+                          TaxTypeRepository taxTypeRepository, CensusRegionRepository censusRegionRepository, CensusDistrictRepository censusDistrictRepository,
+                          TaxRegionRepository taxRegionRepository, TaxDistrictRepository taxDistrictRepository) {
         this.userRepository = userRepository;
+        this.regionRepository = regionRepository;
         this.censusRepository = censusRepository;
         this.taxRepository = taxRepository;
         this.taxTypeRepository = taxTypeRepository;
@@ -42,8 +41,6 @@ public class PageController {
         this.censusDistrictRepository = censusDistrictRepository;
         this.taxRegionRepository = taxRegionRepository;
         this.taxDistrictRepository = taxDistrictRepository;
-        this.regionRepository = regionRepository;
-        this.districtRepository = districtRepository;
     }
 
     @GetMapping("/lord/main")
@@ -92,7 +89,7 @@ public class PageController {
     @GetMapping("/lord/analytics")
     public String lordAnalytics(Model model) {
         User lord = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Iterable<Region> regions =  regionRepository.findAllByLord(lord);
+        Iterable<Region> regions = regionRepository.findAllByLord(lord);
         model.addAttribute("regions", regions);
         return "lord/Analytics";
     }
