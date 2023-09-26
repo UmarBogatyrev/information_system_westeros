@@ -25,9 +25,9 @@
             <td class="text-black" th:text="${district.name}"></td>
             <td class="text-black" th:text="${district.totalResidents}"></td>
             <td class="text-black" th:text="${district.totalHouseholds}"></td>
-            <td class="text-black" th:text="${district.totalTaxesPaid/district.totalHouseholds}"></td>
-            <td class="text-black" th:text="${district.totalResidents/district.totalHouseholds}"></td>
-            <td class="text-black" th:text="${district.totalCattleHeadcount/district.totalHouseholds}"></td>
+            <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalTaxesPaid/district.totalHouseholds}"></p></td>
+            <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalResidents/district.totalHouseholds}"></p></td>
+            <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalCattleHeadcount/district.totalHouseholds}"></p></td>
         </tr>
         </tbody>
     </table>

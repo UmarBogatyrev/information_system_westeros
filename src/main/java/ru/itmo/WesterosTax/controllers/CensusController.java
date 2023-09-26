@@ -70,17 +70,6 @@ public class CensusController {
         return "redirect:/household/index";
     }
 
-    @PostMapping("submitDistrict")
-    public String submitCensusDistrict(@RequestParam CensusDistrict censusDistrict) {
-        CensusRegion censusRegion = censusDistrict.getCensusRegion();
-        censusRegion.setTotalLandArea(censusRegion.getTotalLandArea() + censusDistrict.getTotalLandArea());
-        censusRegion.setTotalCattleHeadcount(censusRegion.getTotalCattleHeadcount() + censusDistrict.getTotalCattleHeadcount());
-        censusRegion.setTotalResidentCount(censusRegion.getTotalResidentCount() + censusDistrict.getTotalResidentCount());
-        censusDistrict.setStatus("submitted");
-        censusDistrictRepository.save(censusDistrict);
-        return "redirect:/landowner/main";
-    }
-
     @PostMapping("createRegion")
     public String createCensusRegion(@RequestParam CensusRegion censusRegion) {
         censusRegion.setStatus("submitting");
@@ -96,7 +85,7 @@ public class CensusController {
         census.setTotalHouseholds(census.getTotalHouseholds() + censusRegion.getRegion().getTotalHouseholds());
         censusRegion.setStatus("submitted");
         censusRepository.save(census);
-        return "redirect:/landowner/main";
+        return "redirect:/lord/main";
     }
 
     @PostMapping("unsubmitRegion")
@@ -106,11 +95,22 @@ public class CensusController {
         return "redirect:/lord/main";
     }
 
+    @PostMapping("submitDistrict")
+    public String submitCensusDistrict(@RequestParam CensusDistrict censusDistrict) {
+        CensusRegion censusRegion = censusDistrict.getCensusRegion();
+        censusRegion.setTotalLandArea(censusRegion.getTotalLandArea() + censusDistrict.getTotalLandArea());
+        censusRegion.setTotalCattleHeadcount(censusRegion.getTotalCattleHeadcount() + censusDistrict.getTotalCattleHeadcount());
+        censusRegion.setTotalResidentCount(censusRegion.getTotalResidentCount() + censusDistrict.getTotalResidentCount());
+        censusDistrict.setStatus("submitted");
+        censusDistrictRepository.save(censusDistrict);
+        return "redirect:/landowner/main";
+    }
+
     @PostMapping("unsubmitDistrict")
     public String unsubmitCensusDistrict(@RequestParam CensusDistrict censusDistrict) {
         censusDistrict.setStatus("created");
         censusDistrictRepository.save(censusDistrict);
-        return "redirect:/lord/main";
+        return "redirect:/landowner/main";
     }
 
     @PostMapping("finish")

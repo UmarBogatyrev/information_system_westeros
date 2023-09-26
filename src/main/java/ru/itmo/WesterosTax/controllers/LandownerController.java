@@ -83,6 +83,10 @@ public class LandownerController {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
+        if (user.getRegion() == null) {
+            bindingResultUser.addError(new ObjectError("region", "Выберите регион"));
+            model.addAttribute("regionError", "Выберите регион");
+        }
         if (bindingResultUser.hasErrors()) {
             Iterable<Region> regions = regionRepository.findAllByLord(lord);
             Iterable<User> landowners = userRepository.findByLord(lord);
@@ -112,6 +116,10 @@ public class LandownerController {
                 userRepository.findByUsername(user.getUsername()).getId() != user.getId()) {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
+        }
+        if (user.getRegion() == null) {
+            bindingResultUser.addError(new ObjectError("region", "Выберите регион"));
+            model.addAttribute("regionError", "Выберите регион");
         }
         if (bindingResultUser.hasErrors()) {
             Iterable<Region> regions = regionRepository.findAllByLord(lord);
