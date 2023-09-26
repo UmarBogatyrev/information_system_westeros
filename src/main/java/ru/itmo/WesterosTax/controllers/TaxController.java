@@ -68,6 +68,13 @@ public class TaxController {
         return "redirect:/household/index";
     }
 
+    @PostMapping("createRegion")
+    public String createTaxRegion(@RequestParam TaxRegion taxRegion) {
+        taxRegion.setStatus("submitting");
+        taxRegionRepository.save(taxRegion);
+        return "redirect:/landowner/main";
+    }
+
     @PostMapping("submitDistrict")
     public String submitTaxDistrict(@RequestParam TaxDistrict taxDistrict) {
         TaxRegion taxRegion = taxDistrict.getTaxRegion();
@@ -85,13 +92,6 @@ public class TaxController {
         return "redirect:/lord/main";
     }
 
-    @PostMapping("createRegion")
-    public String createTaxRegion(@RequestParam TaxRegion taxRegion) {
-        taxRegion.setStatus("submitting");
-        taxRegionRepository.save(taxRegion);
-        return "redirect:/landowner/main";
-    }
-
     @PostMapping("unsubmitRegion")
     public String unsubmitTaxRegion(@RequestParam TaxRegion taxRegion) {
         taxRegion.setStatus("created");
@@ -103,7 +103,7 @@ public class TaxController {
     public String unsubmitTaxDistrict(@RequestParam TaxDistrict taxDistrict) {
         taxDistrict.setStatus("created");
         taxDistrictRepository.save(taxDistrict);
-        return "redirect:/lord/main";
+        return "redirect:/landowner/main";
     }
 
     @PostMapping("finish")
