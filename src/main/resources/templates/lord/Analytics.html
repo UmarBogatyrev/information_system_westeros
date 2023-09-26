@@ -25,7 +25,7 @@
             <td class="text-black" th:text="${region.name}"></td>
             <td class="text-black" th:text="${region.totalResidents}"></td>
             <td class="text-black" th:text="${region.totalHouseholds}"></td>
-            <td class="text-black" th:text="${region.totalTaxesPaid/region.totalHouseholds}"></td>
+            <td class="text-black"><p th:if="${region.totalHouseholds!=0}" th:text="${region.totalTaxesPaid/region.totalHouseholds}"></p></td>
             <td class="text-black"><p th:if="${region.totalHouseholds!=0}" th:text="${region.totalResidents/region.totalHouseholds}"></p></td>
             <td class="text-black"><p th:if="${region.totalHouseholds!=0}" th:text="${region.totalCattleHeadcount/region.totalHouseholds}"></p></td>
         </tr>
