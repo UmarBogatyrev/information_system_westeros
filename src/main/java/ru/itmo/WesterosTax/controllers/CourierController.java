@@ -41,8 +41,12 @@ public class CourierController {
     public String create(@ModelAttribute("user") User user, Model model) {
         User landowner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Iterable<District> districts = landowner.getRegion().getDistricts();
-        Iterable<User> couriers = userRepository.findByLandowner(landowner);
+        List<User> couriers = userRepository.findByLandowner(landowner);
         List<District> districtList = new ArrayList<>();
+        if (couriers.size() == 0) {
+            model.addAttribute("districts", districts);
+            return "landowner/user/Create";
+        }
         for (User courier : couriers) {
             for (District district : districts) {
                 if (courier.getDistrict() != district) {
@@ -61,14 +65,18 @@ public class CourierController {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
-        if (user.getRegion() == null) {
+        if (user.getDistrict() == null) {
             bindingResultUser.addError(new ObjectError("district", "Выберите округ"));
-            model.addAttribute("districtError", "Выберите регион");
+            model.addAttribute("districtError", "Выберите округ");
         }
         if (bindingResultUser.hasErrors()) {
             Iterable<District> districts = landowner.getRegion().getDistricts();
-            Iterable<User> couriers = userRepository.findByLandowner(landowner);
+            List<User> couriers = userRepository.findByLandowner(landowner);
             List<District> districtList = new ArrayList<>();
+            if (couriers.size() == 0) {
+                model.addAttribute("districts", districts);
+                return "landowner/user/Create";
+            }
             for (User courier : couriers) {
                 for (District district : districts) {
                     if (courier.getDistrict() != district) {

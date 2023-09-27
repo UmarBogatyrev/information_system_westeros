@@ -45,8 +45,12 @@ public class LandownerController {
     public String create(@ModelAttribute("user") User user, Model model) {
         User lord = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Iterable<Region> regions = regionRepository.findAllByLord(lord);
-        Iterable<User> landowners = userRepository.findByLord(lord);
+        List<User> landowners = userRepository.findByLord(lord);
         List<Region> regionList = new ArrayList<>();
+        if (landowners.size() == 0) {
+            model.addAttribute("regions", regions);
+            return "lord/user/Create";
+        }
         for (User landowner : landowners) {
             for (Region region : regions) {
                 if (landowner.getRegion() != region) {
@@ -71,6 +75,9 @@ public class LandownerController {
                 }
             }
         }
+        if (regionList.size() == 0) {
+            regionList.add(user.getRegion());
+        }
         model.addAttribute("regions", regionList);
         model.addAttribute("user", user);
         return "lord/user/Edit";
@@ -89,8 +96,12 @@ public class LandownerController {
         }
         if (bindingResultUser.hasErrors()) {
             Iterable<Region> regions = regionRepository.findAllByLord(lord);
-            Iterable<User> landowners = userRepository.findByLord(lord);
+            List<User> landowners = userRepository.findByLord(lord);
             List<Region> regionList = new ArrayList<>();
+            if (landowners.size() == 0) {
+                model.addAttribute("regions", regions);
+                return "lord/user/Create";
+            }
             for (User landowner : landowners) {
                 for (Region region : regions) {
                     if (landowner.getRegion() != region) {
