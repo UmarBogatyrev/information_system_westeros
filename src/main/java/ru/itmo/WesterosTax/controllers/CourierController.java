@@ -65,9 +65,9 @@ public class CourierController {
             bindingResultUser.addError(new ObjectError("username", "Данный логин уже занят"));
             model.addAttribute("usernameError", "Данный логин уже занят");
         }
-        if (user.getRegion() == null) {
+        if (user.getDistrict() == null) {
             bindingResultUser.addError(new ObjectError("district", "Выберите округ"));
-            model.addAttribute("districtError", "Выберите регион");
+            model.addAttribute("districtError", "Выберите округ");
         }
         if (bindingResultUser.hasErrors()) {
             Iterable<District> districts = landowner.getRegion().getDistricts();
