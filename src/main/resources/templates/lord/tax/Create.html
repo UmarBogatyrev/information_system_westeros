@@ -34,12 +34,21 @@
                 th:errors="*{name}"
               ></div>
             </div>
-            <!-- <label>Формула расчета</label>
-                <div class="form-group mt-2">
-                    <input placeholder="Введите формулу расчета" type="text" class="form-control" th:field="*{formula}">
-                    <div class="error text-danger" th:if="${#fields.hasErrors('formula')}" th:errors="*{formula}"></div>
-                </div> -->
             <label>Формула расчета</label>
+            <div class="form-group mt-2">
+              <input
+                placeholder="Введите формулу расчета"
+                type="text"
+                class="form-control"
+                th:field="*{formula}"
+              />
+              <div
+                class="error text-danger"
+                th:if="${#fields.hasErrors('formula')}"
+                th:errors="*{formula}"
+              ></div>
+            </div>
+            <!-- <label>Формула расчета</label>
             <div class="form-group mt-2">
               <input
                 placeholder="Введите формулу расчета"
@@ -61,25 +70,18 @@
               ></div>
             </div>
 
-            <!-- Дополнительные элементы для конструктора формул -->
             <div id="formulaEditor" style="display: none">
-              <!-- Здесь добавьте элементы для выбора переменных из базы данных и системы -->
-              <select id="variables">
-                <!-- Опции переменных -->
-              </select>
+              <select id="variables"></select>
 
-              <!-- Кнопка добавления переменной в формулу -->
               <button type="button" onclick="addVariableToFormula()">
                 Добавить переменную
               </button>
 
-              <!-- Поле для отображения текущей формулы -->
               <div id="currentFormula">
                 Текущая формула: <span id="displayFormula"></span>
               </div>
             </div>
 
-            <!-- Скрипты для работы с конструктором формул -->
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
               function openFormulaEditor() {
@@ -87,7 +89,6 @@
               }
 
               function addVariableToFormula() {
-                // Логика добавления выбранной переменной в текущую формулу
                 var selectedVariable = $("#variables").val();
                 var currentFormula = $("#formulaInput").val();
                 $("#formulaInput").val(currentFormula + selectedVariable);
@@ -95,11 +96,10 @@
               }
 
               function updateDisplayFormula() {
-                // Обновление отображения текущей формулы
                 var currentFormula = $("#formulaInput").val();
                 $("#displayFormula").text(currentFormula);
               }
-            </script>
+            </script> -->
 
             <!-- ----------------------------------- -->
             <label>Описание</label>
