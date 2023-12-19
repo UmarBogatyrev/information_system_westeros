@@ -112,7 +112,7 @@
                             </tbody>
                         </table>
                         <form th:if="${censusRegion.status == 'created' || censusRegion.status == 'unsubmitted'}" th:action="${'/census/createRegion'}" method="post">
-                            <input type="submit" class="btn btn-primary" style="margin-bottom:1em" value="Отправить отчет">
+                            <input type="submit" class="btn btn-primary" style="margin-bottom:1em" name="report" value="Отправить отчет">
                             <input type="hidden" name="censusRegion" th:value="${censusRegion.id}"/>
                         </form>
                     </div>
@@ -138,7 +138,7 @@
                                 <td th:if="${taxDistrict.status == 'submitting'}">
                                     <div class="btn-group">
                                         <form method="post" th:action="${'/tax/submitDistrict'}">
-                                            <button type="submit">
+                                            <button type="submit" name="taxSubmit">
                                                 <img src="/images/submit.png"/>
                                                 <input type="hidden" th:value="${taxDistrict.id}" name="taxDistrict">
                                             </button>

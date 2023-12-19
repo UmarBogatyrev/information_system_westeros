@@ -139,7 +139,7 @@
                             <td th:if="${taxRegion.status == 'submitting'}">
                                 <div class="btn-group">
                                     <form method="post" th:action="${'/tax/submitRegion'}">
-                                        <button type="submit">
+                                        <button type="submit" name="taxSubmit">
                                             <img src="/images/submit.png"/>
                                             <input type="hidden" th:value="${taxRegion.id}" name="taxRegion">
                                             <input type="hidden" th:value="${unfinishedTax.id}" name="tax">
