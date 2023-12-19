@@ -26,7 +26,7 @@ public class AddingCorierTest {
     }
 
     @Test
-    public void testCreateLord() throws InterruptedException {
+    public void testCreateCorier() throws InterruptedException {
         loginAsLandowner();
         driver.get("http://localhost:8080/courier/index");
 
@@ -39,16 +39,16 @@ public class AddingCorierTest {
         driver.get("http://localhost:8080/courier/create");
 
         WebElement usernameInput = driver.findElement(By.name("username"));
-        usernameInput.sendKeys("земл");
+        usernameInput.sendKeys("гонец");
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
-        passwordInput.sendKeys("231241241");
+        passwordInput.sendKeys("131231233");
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.name("district"));
@@ -64,18 +64,17 @@ public class AddingCorierTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
     }
 
-    @Test
-    public void loginAsLandowner() throws InterruptedException {
+    private void loginAsLandowner() throws InterruptedException {
         driver.get("http://localhost:8080/login");
 
         WebElement usernameInput = driver.findElement(By.name("username"));
-        usernameInput.sendKeys("зум");
+        usernameInput.sendKeys("землевладелец");
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("4534524524");

@@ -39,16 +39,16 @@ public class AddingLandownerTest {
         driver.get("http://localhost:8080/landowner/create");
 
         WebElement usernameInput = driver.findElement(By.name("username"));
-        usernameInput.sendKeys("зум");
+        usernameInput.sendKeys("землевладелец");
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("4534524524");
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.name("region"));
@@ -64,18 +64,17 @@ public class AddingLandownerTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
     }
 
-    @Test
-    public void loginAsLord() throws InterruptedException {
+    private void loginAsLord() throws InterruptedException {
         driver.get("http://localhost:8080/login");
 
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("верховный_лорд");
         // Пауза в 3 секунды
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("123455678");
