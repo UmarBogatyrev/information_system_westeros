@@ -20,8 +20,9 @@ public class TaxСollection {
 
     @Before
     public void setUp() {
-        String chromeExecutablePath = ConfProperties.getProperty("chromebrouzer");
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        String chromeExecutablePath = "C:\\Develop\\test\\chrome-win64\\chrome.exe";
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Develop\\test\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setBinary(chromeExecutablePath);
@@ -50,7 +51,7 @@ public class TaxСollection {
         taxFormula.sendKeys("1*2*2");
 
         WebElement taxDescription = driver.findElement(By.id("description"));
-        taxDescription .sendKeys("Плати деньги");
+        taxDescription.sendKeys("Плати деньги");
 
         WebElement submitButton = driver.findElement(By.cssSelector("input[value='Сохранить']"));
         submitButton.click();
@@ -64,7 +65,6 @@ public class TaxСollection {
         // Кликнуть по найденному элементу
         linkElementMain.click();
 
-
         driver.get("http://localhost:8080/lord/main");
 
         WebElement orderInput = driver.findElement(By.id("showAlertTax"));
@@ -73,7 +73,6 @@ public class TaxСollection {
 
         // Пауза в 3 секунды
         Thread.sleep(1000);
-
 
         // Найти все элементы с заданным локатором
         List<WebElement> dataInputsOne = driver.findElements(By.id("dateBegin"));
@@ -158,7 +157,6 @@ public class TaxСollection {
         WebElement reportReadyInput = driver.findElement(By.name("taxSubmit"));
         reportReadyInput.click();
 
-
         // Найти все элементы с заданным CSS селектором
         WebElement reportElement = driver.findElement(By.cssSelector("input[value='Отправить отчет']"));
         // Пауза в 3 секунды
@@ -189,7 +187,6 @@ public class TaxСollection {
         WebElement reportElement = driver.findElement(By.cssSelector("input[value='Завершить']"));
         reportElement.click();
     }
-
 
     private void loginAsLord() throws InterruptedException {
         driver.get("http://localhost:8080/login");

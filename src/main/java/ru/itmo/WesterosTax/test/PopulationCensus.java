@@ -19,8 +19,9 @@ public class PopulationCensus {
 
     @Before
     public void setUp() {
-        String chromeExecutablePath = ConfProperties.getProperty("chromebrouzer");
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        String chromeExecutablePath = "C:\\Develop\\test\\chrome-win64\\chrome.exe";
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Develop\\test\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setBinary(chromeExecutablePath);
@@ -39,10 +40,9 @@ public class PopulationCensus {
         linkElement.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         driver.get("http://localhost:8080/lord/main");
-
 
         WebElement orderInput = driver.findElement(By.id("showAlertCensus"));
 
@@ -52,43 +52,37 @@ public class PopulationCensus {
         // Пауза в 3 секунды
         Thread.sleep(1000);
 
-
         WebElement dataInputOne = driver.findElement(By.id("dateBegin"));
 
         dataInputOne.sendKeys("12.11.2023");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
-
+        // Thread.sleep(3000);
 
         WebElement dataInputTwo = driver.findElement(By.id("dateEnd"));
 
         dataInputTwo.sendKeys("12.15.2023");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
-
+        // Thread.sleep(3000);
 
         WebElement commentInput = driver.findElement(By.name("comment"));
         commentInput.sendKeys("Плати налог");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
-
-
+        // Thread.sleep(3000);
 
         WebElement submitButton = driver.findElement(By.cssSelector("input[value='Отправить']"));
         submitButton.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
-
+        // Thread.sleep(3000);
 
         WebElement submitButtonExit = driver.findElement(By.cssSelector("input[class='btn text-white']"));
 
         submitButtonExit.click();
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
 
@@ -109,13 +103,13 @@ public class PopulationCensus {
         humanNameInput.sendKeys("Иван Петров");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement addressNameInput = driver.findElement(By.name("address"));
         addressNameInput.sendKeys("улица.Жукова");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement residentsNameInput = driver.findElement(By.name("residentCount"));
         // Очищаем текущее значение
@@ -123,7 +117,7 @@ public class PopulationCensus {
         residentsNameInput.sendKeys("5");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement incomeNameInput = driver.findElement(By.name("income"));
         // Очищаем текущее значение
@@ -131,7 +125,7 @@ public class PopulationCensus {
         incomeNameInput.sendKeys("213231");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement squareNameInput = driver.findElement(By.name("landArea"));
         // Очищаем текущее значение
@@ -139,7 +133,7 @@ public class PopulationCensus {
         squareNameInput.sendKeys("45");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement cattleNameInput = driver.findElement(By.name("cattleHeadcount"));
         // Очищаем текущее значение
@@ -147,7 +141,7 @@ public class PopulationCensus {
         cattleNameInput.sendKeys("3");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement taxNameInput = driver.findElement(By.name("taxesCollected"));
         // Очищаем текущее значение
@@ -155,7 +149,7 @@ public class PopulationCensus {
         taxNameInput.sendKeys("1256");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement submitButton = driver.findElement(By.cssSelector("button[type='submit']"));
         submitButton.click();
@@ -167,12 +161,11 @@ public class PopulationCensus {
         WebElement reportElement = driver.findElement(By.cssSelector("input[value='Отправить отчет']"));
         reportElement.click();
 
-
         WebElement submitButtonExit = driver.findElement(By.cssSelector("input[class='btn text-white']"));
         submitButtonExit.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
 
@@ -188,7 +181,7 @@ public class PopulationCensus {
         linkElement.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         driver.get("http://localhost:8080/landowner/main");
 
@@ -203,7 +196,7 @@ public class PopulationCensus {
         reportElement.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
 
@@ -219,7 +212,7 @@ public class PopulationCensus {
         linkElement.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         driver.get("http://localhost:8080/lord/main");
 
@@ -234,10 +227,9 @@ public class PopulationCensus {
         reportElement.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
-
 
     private void loginAsLord() throws InterruptedException {
         driver.get("http://localhost:8080/login");
@@ -245,7 +237,7 @@ public class PopulationCensus {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("верховный_лорд");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("123455678");
@@ -261,7 +253,7 @@ public class PopulationCensus {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("землевладелец");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("4534524524");
@@ -277,7 +269,7 @@ public class PopulationCensus {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("гонец");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("131231233");
