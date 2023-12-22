@@ -10,15 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class AddingCorierTest {
 
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        String chromeExecutablePath = ConfProperties.getProperty("chromebrouzer");
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        String chromeExecutablePath = "C:\\Develop\\test\\chrome-win64\\chrome.exe";
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Develop\\test\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setBinary(chromeExecutablePath);
@@ -29,6 +29,9 @@ public class AddingCorierTest {
     public void testCreateCorier() throws InterruptedException {
         loginAsLandowner();
         driver.get("http://localhost:8080/courier/index");
+
+        // Пауза в 3 секунды
+        Thread.sleep(3000);
 
         // Найти элемент по тексту ссылки или другому уникальному идентификатору
         WebElement linkElement = driver.findElement(By.linkText("+"));
@@ -42,13 +45,13 @@ public class AddingCorierTest {
         usernameInput.sendKeys("гонец");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("131231233");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.name("district"));
@@ -64,7 +67,7 @@ public class AddingCorierTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
 
     }
 
@@ -74,7 +77,7 @@ public class AddingCorierTest {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("землевладелец");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("4534524524");

@@ -12,7 +12,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
-
 @FixMethodOrder(MethodSorters.JVM)
 public class AddingLordTest {
 
@@ -20,8 +19,9 @@ public class AddingLordTest {
 
     @Before
     public void setUp() {
-        String chromeExecutablePath = ConfProperties.getProperty("chromebrouzer");
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        String chromeExecutablePath = "C:\\Develop\\test\\chrome-win64\\chrome.exe";
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Develop\\test\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setBinary(chromeExecutablePath);
@@ -37,7 +37,7 @@ public class AddingLordTest {
         usernameInput.sendKeys("верховный_лорд");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("123455678");
@@ -46,7 +46,7 @@ public class AddingLordTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
 
@@ -64,7 +64,7 @@ public class AddingLordTest {
         regionNameInput.sendKeys("Васиостковский");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.cssSelector("select.form-control"));
@@ -77,7 +77,7 @@ public class AddingLordTest {
         select.selectByVisibleText("верховный_лорд");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement submitButton = driver.findElement(By.cssSelector("button[type='submit']"));
         submitButton.click();
@@ -94,11 +94,10 @@ public class AddingLordTest {
 
         driver.get("http://localhost:8080/admin/district");
 
-
         WebElement districtNameInput = driver.findElement(By.name("name"));
         districtNameInput.sendKeys("Восток");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.name("region"));
@@ -114,11 +113,9 @@ public class AddingLordTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
-
-
 
     private void loginAsAdmin() throws InterruptedException {
         driver.get("http://localhost:8080/login");
@@ -126,7 +123,7 @@ public class AddingLordTest {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("ADMIN");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("ADMIN");

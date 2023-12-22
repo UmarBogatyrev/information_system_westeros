@@ -10,15 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class AddingLandownerTest {
 
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        String chromeExecutablePath = ConfProperties.getProperty("chromebrouzer");
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        String chromeExecutablePath = "C:\\Develop\\test\\chrome-win64\\chrome.exe";
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Develop\\test\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setBinary(chromeExecutablePath);
@@ -42,13 +42,13 @@ public class AddingLandownerTest {
         usernameInput.sendKeys("землевладелец");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("4534524524");
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         // Находим <select> элемент
         WebElement selectElement = driver.findElement(By.name("region"));
@@ -64,7 +64,7 @@ public class AddingLandownerTest {
         submitButton.click();
 
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
     }
 
@@ -74,7 +74,7 @@ public class AddingLandownerTest {
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("верховный_лорд");
         // Пауза в 3 секунды
-        //Thread.sleep(3000);
+        // Thread.sleep(3000);
 
         WebElement passwordInput = driver.findElement(By.name("password"));
         passwordInput.sendKeys("123455678");
