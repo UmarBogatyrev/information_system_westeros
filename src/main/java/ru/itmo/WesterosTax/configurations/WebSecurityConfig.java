@@ -37,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/bootstrap/*", "/images/*", "/tailwind/*").permitAll()
+                .antMatchers("/landowner/index", "/lord/main", "/taxType/index", "/taxType/edit/**", "/lord/analytics", "/taxType/create").hasRole("LORD")
+                .antMatchers("/courier/index", "/landowner/main", "/taxType/landowner/index", "/landowner/analytics").hasRole("LANDOWNER")
+                .antMatchers("/household/index").hasRole("COURIER")
+                .antMatchers("/admin/lord", "/admin/district", "/admin/region").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -53,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder)
                 .usersByUsernameQuery("select username, password, active from users where username=?")
-                .authoritiesByUsernameQuery("select u.username, ur.roles from users u inner join user_role ur on u.id = ur.user_id where u.username=?");
+                .authoritiesByUsernameQuery(
+                        "select u.username, ur.roles from users u inner join user_role ur on u.id = ur.user_id where u.username=?");
     }
 }
