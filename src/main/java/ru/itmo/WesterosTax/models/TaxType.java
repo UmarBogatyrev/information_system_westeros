@@ -16,7 +16,7 @@ public class TaxType {
     private String name;
 
     @NotBlank
-    @Size(min = 3, max = 25, message = "Формула налога должно быть от 3 до 25 символов")
+    @Size(min = 1, max = 3, message = "Введите процент (1-100)")
     @Column(unique = true)
     private String formula;
 
