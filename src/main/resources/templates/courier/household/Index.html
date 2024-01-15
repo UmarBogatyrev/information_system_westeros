@@ -103,6 +103,14 @@
             <p class="fw-bold fs-6 card-text">
                 Вам следует прибыть в указанное место к началу сбора
             </p>
+            <p class="fw-bold fs-6 card-text">
+                Формула для расчета налога: <span class="fw-bold fs-6" th:text="'(КРС + ПД + КЖ) * ' + ${taxFormula} + '%'"></span>
+            </p>
+            <p class="fw-bold fs-6 card-text">
+                КРС - поголовье крупного рогатого скота<br>
+                ПД - площадь домовладения<br>
+                КЖ - количество жильцов<br>
+            </p>           
         </div>
     </div>
     <div th:if="${unfinishedTax!=null}" class="card border-dark mt-2" style="width: 54rem;">
@@ -122,7 +130,7 @@
             <tr>
                 <td class="text-black" th:text="${household.name}"></td>
                 <td class="text-black" th:text="${household.address}"></td>
-                <td class="text-black" th:text="${household.income}"></td>
+                <td class="text-black" th:text="${taxFormula}"></td>
             </tr>
             </tbody>
         </table>

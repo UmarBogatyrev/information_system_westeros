@@ -48,7 +48,7 @@ public class TaxСollection {
         taxName.sendKeys("Подоходный налог");
 
         WebElement taxFormula = driver.findElement(By.id("formula"));
-        taxFormula.sendKeys("1*2*2");
+        taxFormula.sendKeys("15");                              //Замена значения поля
 
         WebElement taxDescription = driver.findElement(By.id("description"));
         taxDescription.sendKeys("Плати деньги");
