@@ -28,6 +28,9 @@ public class District {
     private int totalResidents;
 
     @NotNull
+    private double totalIncome;
+
+    @NotNull
     private double totalTaxesPaid;
 
     @ManyToOne
@@ -86,6 +89,14 @@ public class District {
 
     public void setTotalTaxesPaid(double totalTaxesPaid) {
         this.totalTaxesPaid = totalTaxesPaid;
+    }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome = totalIncome;
     }
 
     public Region getRegion() {
