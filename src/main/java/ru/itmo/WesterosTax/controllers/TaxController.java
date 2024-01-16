@@ -60,8 +60,17 @@ public class TaxController {
         Iterable<Household> households = courier.getDistrict().getHouseholds();
         TaxDistrict taxDistrict = taxDistrictRepository.findByTaxRegionTaxAndDistrict(tax, courier.getDistrict());
         String formula = taxDistrict.getTaxRegion().getTax().getTaxType().getFormula();
+        
         for (Household household : households) {
-            taxDistrict.setTotalIncome(household.getIncome());
+            double sum = household.getLandArea() + household.getCattleHeadcount() + household.getResidentCount();
+            double dividedBy100 = sum / 100.0;
+            double result = Math.abs(dividedBy100 * (100.0 - Double.parseDouble(formula)));
+
+            // taxDistrict.setTotalIncome(household.getIncome());
+            double currentTotalIncome = taxDistrict.getTotalIncome(); // получить текущее значение
+            double newTotalIncome = currentTotalIncome + result; // добавить новое значение
+            taxDistrict.setTotalIncome(newTotalIncome); // установить результат обратно
+
             taxDistrict.setStatus("submitting");
         }
         taxDistrictRepository.save(taxDistrict);
