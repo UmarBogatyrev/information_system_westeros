@@ -121,6 +121,7 @@
         <table class="table table-bordered">
             <thead class="bg-success">
             <tr>
+                <!-- <th scope="col" class="text-white text-center"></th> Пустая ячейка для чекбоксов, они привязаны к id, так что потом мб сделаем что-нибудь -->
                 <th scope="col" class="text-white text-center">Хозяйство</th>
                 <th scope="col" class="text-white text-center">Адрес</th>
                 <th scope="col" class="text-white text-center">Сумма к оплате</th>
@@ -128,9 +129,12 @@
             </thead>
             <tbody th:each="household : ${households}">
             <tr>
+                <!-- <td class="text-black">
+                    <input type="checkbox" th:id="'checkbox_' + ${household.id}" name="selectedHouseholds" th:value="${household.id}"/>
+                </td> -->
                 <td class="text-black" th:text="${household.name}"></td>
                 <td class="text-black" th:text="${household.address}"></td>
-                <td class="text-black" th:text="${taxFormula}"></td>
+                <td class="text-black" th:text="${(household.cattleHeadcount + household.landArea + household.residentCount) / 100 * (100-taxFormula)}"></td>
             </tr>
             </tbody>
         </table>

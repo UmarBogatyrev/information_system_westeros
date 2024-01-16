@@ -57,6 +57,13 @@ public class PageController {
         model.addAttribute("unfinishedTax", unfinishedTax);
         model.addAttribute("taxRegions", taxRegionRepository.findAllByTaxOrderById(unfinishedTax));
 
+        if (unfinishedTax != null) {
+            Long taxTypeId = unfinishedTax.getTaxType().getId();
+            String formula = taxTypeRepository.findFormulaById(taxTypeId);
+            int formulaInt = Integer.parseInt(formula);
+            model.addAttribute("taxFormula", formulaInt);
+        }
+
         model.addAttribute("censusLast", censusLast);
         model.addAttribute("taxLast", taxLast);
         model.addAttribute("taxTypes", taxTypeRepository.findAllByLord(lord));
@@ -70,6 +77,13 @@ public class PageController {
         Census unfinishedCensus = censusRepository.findByLordAndFinished(landowner.getLord(), false);
         CensusRegion censusRegionLast = censusRegionRepository.findFirstByRegionOrderByIdDesc(landowner.getRegion());
         TaxRegion taxRegionLast = taxRegionRepository.findFirstByRegionOrderByIdDesc(landowner.getRegion());
+
+        if (unfinishedTax != null) {
+            Long taxTypeId = unfinishedTax.getTaxType().getId();
+            String formula = taxTypeRepository.findFormulaById(taxTypeId);
+            int formulaInt = Integer.parseInt(formula);
+            model.addAttribute("taxFormula", formulaInt);
+        }
 
         CensusRegion censusRegion = censusRegionRepository.findByCensusAndRegion(unfinishedCensus, landowner.getRegion());
         model.addAttribute("unfinishedCensus", unfinishedCensus);

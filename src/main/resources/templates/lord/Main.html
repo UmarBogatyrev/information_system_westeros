@@ -1,261 +1,463 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Главная</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
-    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}" />
+    <link media="all" rel="stylesheet" th:href="@{/bootstrap/bootstrap.js}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div th:insert="header/Lord"></div>
-<div class="d-flex flex-column align-items-center justify-content-center mt-3">
-    <div class="card border-dark" style="width: 36rem;">
+  </head>
+  <body>
+    <div th:insert="header/Lord"></div>
+    <div
+      class="d-flex flex-column align-items-center justify-content-center mt-3"
+    >
+      <div class="card border-dark" style="width: 36rem">
         <div class="card-body">
-            <h3 class="card-title text-center">Статистика</h3>
-            <p class="fw-normal fs-5 card-text">
-                Население Западных земель, чел.: <span class="fw-bold fs-5 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}" th:text="${censusLast.totalResidentCount}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Число хозяйств: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}" th:text="${censusLast.totalHouseholds}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Среднее число жителей на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
-                                                          th:text="${censusLast.totalResidentCount/censusLast.totalHouseholds}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Средняя площадь хозяйства, м<sup>2</sup>: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
-                                                                th:text="${censusLast.totalLandArea/censusLast.totalHouseholds}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Среднее поголовье КРС на хозяйство: <span class="fw-bold fs-6 text-warning" th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
-                                                          th:text="${censusLast.totalCattleHeadcount/censusLast.totalHouseholds}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Средняя сумма налогов к уплате: <span class="fw-bold fs-6 text-warning" th:if="${taxLast!=null && censusLast!=null && taxLast.totalIncome!=0 && censusLast.totalHouseholds!=0}"
-                                                      th:text="${taxLast.totalIncome/censusLast.totalHouseholds}"></span>
-            </p>
-            <p class="fw-normal fs-6 card-text">
-                Собранная сумма налогов: <span class="fw-bold fs-6 text-warning" th:if="${taxLast!=null}" th:text="${taxLast.totalIncome}"></span>
-            </p>
-            <p class="fw-light fs-6 card-text">
-                Подробнее в разделе <a class="fw-normal fs-6 text-warning" href="/lord/analytics">Аналитика</a>
-            </p>
+          <h3 class="card-title text-center">Статистика</h3>
+          <p class="fw-normal fs-5 card-text">
+            Население земель, чел.:
+            <span
+              class="fw-bold fs-5 text-warning"
+              th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
+              th:text="${censusLast.totalResidentCount}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Число хозяйств:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
+              th:text="${censusLast.totalHouseholds}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Среднее число жителей на хозяйство:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
+              th:text="${censusLast.totalResidentCount/censusLast.totalHouseholds}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Средняя площадь хозяйства, м<sup>2</sup>:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
+              th:text="${censusLast.totalLandArea/censusLast.totalHouseholds}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Среднее поголовье КРС на хозяйство:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${censusLast != null && censusLast.totalHouseholds!=0}"
+              th:text="${censusLast.totalCattleHeadcount/censusLast.totalHouseholds}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Средняя сумма налогов к уплате:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${taxLast!=null && censusLast!=null && taxLast.totalIncome!=0 && censusLast.totalHouseholds!=0}"
+              th:text="${taxLast.totalIncome/censusLast.totalHouseholds}"
+            ></span>
+          </p>
+          <p class="fw-normal fs-6 card-text">
+            Собранная сумма налогов:
+            <span
+              class="fw-bold fs-6 text-warning"
+              th:if="${taxLast!=null}"
+              th:text="${taxLast.totalIncome}"
+            ></span>
+          </p>
+          <p class="fw-light fs-6 card-text">
+            Подробнее в разделе
+            <a class="fw-normal fs-6 text-warning" href="/lord/analytics"
+              >Аналитика</a
+            >
+          </p>
         </div>
-    </div>
-    <div class="card-group mt-3">
-        <div th:if="${unfinishedCensus!=null}" class="card border-dark" style="width: 36rem;">
-            <div class="card-body">
-                <h3 class="card-title text-center">Перепись населения</h3>
-                <div class="justify-content-center text-center">
-                    <p class="fw-bold fs-6 card-text">
-                        Дата начала переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateBegin}"></span>
-                    </p>
-                    <p class="fw-bold fs-6 card-text">
-                        Дата завершения переписи: <span class="fw-bold fs-6" th:text="${unfinishedCensus.dateEnd}"></span>
-                    </p>
-                    <table class="table table-bordered">
-                        <tbody th:each="censusRegion : ${censusRegions}">
-                        <tr th:classappend="|${censusRegion.status=='created' ? 'bg-light' : ''} ${censusRegion.status=='submitted' ? 'bg-success' : 'bg-warning'}|">
-                            <td class="justify-content-center text-center">
-                                <p>
-                                    <span class="fw-normal fs-5" th:text="${censusRegion.region.name}"></span>
-                                </p>
-                            </td>
-                            <td th:if="${censusRegion.status == 'submitting'}">
-                                <div class="btn-group">
-                                    <form method="post" th:action="${'/census/submitRegion'}">
-                                        <button type="submit">
-                                            <img src="/images/submit.png"/>
-                                            <input type="hidden" th:value="${censusRegion.id}" name="censusRegion">
-                                            <input type="hidden" th:value="${unfinishedCensus.id}" name="census">
-                                        </button>
-                                    </form>
-                                    <form method="post" th:action="${'/census/unsubmitRegion'}">
-                                        <button type="submit">
-                                            <img src="/images/decline.png"/>
-                                            <input type="hidden" th:value="${censusRegion.id}" name="censusRegion">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <form th:action="${'/census/finish'}" method="post">
-                        <input class="btn btn-danger" value="Завершить" type="submit">
-                        <input type="hidden" th:value="${unfinishedCensus.id}" name="census">
-                    </form>
-                    <form th:action="${'/census/delete'}" class="mt-1" method="post">
-                        <input class="btn btn-secondary" value="Отменить перепись" type="submit">
-                        <input type="hidden" th:value="${unfinishedCensus.id}" name="census">
-                    </form>
-                </div>
+      </div>
+      <div class="card-group mt-3">
+        <div
+          th:if="${unfinishedCensus!=null}"
+          class="card border-dark"
+          style="width: 36rem"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Перепись населения</h3>
+            <div class="justify-content-center text-center">
+              <p class="fw-bold fs-6 card-text">
+                Дата начала переписи:
+                <span
+                  class="fw-bold fs-6"
+                  th:text="${unfinishedCensus.dateBegin}"
+                ></span>
+              </p>
+              <p class="fw-bold fs-6 card-text">
+                Дата завершения переписи:
+                <span
+                  class="fw-bold fs-6"
+                  th:text="${unfinishedCensus.dateEnd}"
+                ></span>
+              </p>
+              <table class="table table-bordered">
+                <tbody th:each="censusRegion : ${censusRegions}">
+                  <tr
+                    th:classappend="|${censusRegion.status=='created' ? 'bg-light' : ''} ${censusRegion.status=='submitted' ? 'bg-success' : 'bg-warning'}|"
+                  >
+                    <td class="justify-content-center text-center">
+                      <p>
+                        <span
+                          class="fw-normal fs-5"
+                          th:text="${censusRegion.region.name}"
+                        ></span>
+                      </p>
+                    </td>
+                    <td th:if="${censusRegion.status == 'submitting'}">
+                      <div class="btn-group">
+                        <form
+                          method="post"
+                          th:action="${'/census/submitRegion'}"
+                        >
+                          <button type="submit">
+                            <img src="/images/submit.png" />
+                            <input
+                              type="hidden"
+                              th:value="${censusRegion.id}"
+                              name="censusRegion"
+                            />
+                            <input
+                              type="hidden"
+                              th:value="${unfinishedCensus.id}"
+                              name="census"
+                            />
+                          </button>
+                        </form>
+                        <form
+                          method="post"
+                          th:action="${'/census/unsubmitRegion'}"
+                        >
+                          <button type="submit">
+                            <img src="/images/decline.png" />
+                            <input
+                              type="hidden"
+                              th:value="${censusRegion.id}"
+                              name="censusRegion"
+                            />
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <form th:action="${'/census/finish'}" method="post">
+                <input class="btn btn-danger" value="Завершить" type="submit" />
+                <input
+                  type="hidden"
+                  th:value="${unfinishedCensus.id}"
+                  name="census"
+                />
+              </form>
+              <form th:action="${'/census/delete'}" class="mt-1" method="post">
+                <input
+                  class="btn btn-secondary"
+                  value="Отменить перепись"
+                  type="submit"
+                />
+                <input
+                  type="hidden"
+                  th:value="${unfinishedCensus.id}"
+                  name="census"
+                />
+              </form>
             </div>
+          </div>
         </div>
-        <div th:if="${unfinishedCensus==null}" class="card border-dark" style="width: 36rem;">
-            <div class="card-body">
-                <h3 class="card-title text-center">Перепись населения</h3>
-                <div class="form-group pt-1 d-flex justify-content-center">
-                    <input th:if="${unfinishedTax==null}" class="btn btn-danger" id="showAlertCensus" value="Издать указ о переписи">
-                    <div th:if="${unfinishedTax!=null}" class="justify-content-center text-center">
-                        <input class="btn btn-secondary" value="Издать указ о переписи" disabled>
-                        <p class="fw-bold fs-6 text-danger">В данный момент уже производится сбор подати</p>
+        <div
+          th:if="${unfinishedCensus==null}"
+          class="card border-dark"
+          style="width: 36rem"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Перепись населения</h3>
+            <div class="form-group pt-1 d-flex justify-content-center">
+              <input
+                th:if="${unfinishedTax==null}"
+                class="btn btn-danger"
+                id="showAlertCensus"
+                value="Издать указ о переписи"
+              />
+              <div
+                th:if="${unfinishedTax!=null}"
+                class="justify-content-center text-center"
+              >
+                <input
+                  class="btn btn-secondary"
+                  value="Издать указ о переписи"
+                  disabled
+                />
+                <p class="fw-bold fs-6 text-danger">
+                  В данный момент уже производится сбор подати
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          th:if="${unfinishedTax==null}"
+          class="card border-dark"
+          style="width: 36rem"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Сбор подати</h3>
+            <div class="form-group pt-1 d-flex justify-content-center">
+              <input
+                th:if="${unfinishedCensus==null}"
+                class="btn btn-danger"
+                id="showAlertTax"
+                value="Издать указ о сборе подати"
+              />
+              <div
+                th:if="${unfinishedCensus!=null}"
+                class="justify-content-center text-center"
+              >
+                <input
+                  class="btn btn-secondary"
+                  value="Издать указ о сборе подати"
+                  disabled
+                />
+                <p class="fw-bold fs-6 text-danger">
+                  В данный момент уже производится перепись населения
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          th:if="${unfinishedTax!=null}"
+          class="card border-dark"
+          style="width: 36rem"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-center">Сбор подати</h3>
+            <div class="justify-content-center text-center">
+              <p class="fw-bold fs-6 card-text">
+                Дата начала сбора:
+                <span
+                  class="fw-bold fs-6"
+                  th:text="${unfinishedTax.dateBegin}"
+                ></span>
+              </p>
+              <p class="fw-bold fs-6 card-text">
+                Дата завершения сбора:
+                <span
+                  class="fw-bold fs-6"
+                  th:text="${unfinishedTax.dateEnd}"
+                ></span>
+              </p>
+              <table class="table table-bordered">
+                <tbody th:each="taxRegion : ${taxRegions}">
+                  <tr
+                    th:classappend="|${taxRegion.status=='created' ? 'bg-light' : ''} ${taxRegion.status=='submitted' ? 'bg-success' : 'bg-warning'}|"
+                  >
+                    <td class="justify-content-center text-center">
+                      <p>
+                        <span
+                          class="fw-normal fs-5"
+                          th:text="${taxRegion.region.name}"
+                        ></span>
+                      </p>
+                    </td>
+                    <td th:if="${taxRegion.status == 'submitting'}">
+                      <div class="btn-group">
+                        <form method="post" th:action="${'/tax/submitRegion'}">
+                          <button type="submit" name="taxSubmit">
+                            <img src="/images/submit.png" />
+                            <input
+                              type="hidden"
+                              th:value="${taxRegion.id}"
+                              name="taxRegion"
+                            />
+                            <input
+                              type="hidden"
+                              th:value="${unfinishedTax.id}"
+                              name="tax"
+                            />
+                          </button>
+                        </form>
+                        <form
+                          method="post"
+                          th:action="${'/tax/unsubmitRegion'}"
+                        >
+                          <button type="submit">
+                            <img src="/images/decline.png" />
+                            <input
+                              type="hidden"
+                              th:value="${taxRegion.id}"
+                              name="taxRegion"
+                            />
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <form th:action="${'/tax/finish'}" method="post">
+                <input class="btn btn-danger" value="Завершить" type="submit" />
+                <input
+                  type="hidden"
+                  th:value="${unfinishedTax.id}"
+                  name="tax"
+                />
+              </form>
+              <form th:action="${'/tax/delete'}" class="mt-1" method="post">
+                <input
+                  class="btn btn-secondary"
+                  value="Отменить сбор"
+                  type="submit"
+                />
+                <input
+                  type="hidden"
+                  th:value="${unfinishedTax.id}"
+                  name="tax"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-group mt-3">
+        <div
+          class="alert alert-light alert-dismissable census"
+          style="display: none"
+        >
+          <div class="card border-dark" style="width: 36rem">
+            <div class="card-body justify-content-center">
+              <h3 class="card-title text-center">Перепись населения</h3>
+              <form
+                th:object="${census}"
+                th:action="${'/census/create'}"
+                method="post"
+              >
+                <p class="fw-bold fs-6">Сроки проведение переписи:</p>
+                <div class="row">
+                  <div class="col">
+                    <label
+                      >С
+                      <input type="date" th:field="*{dateBegin}" />
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label
+                      >По
+                      <input type="date" th:field="*{dateEnd}" />
+                    </label>
+                  </div>
+                </div>
+                <input
+                  class="form-control mt-1"
+                  type="text"
+                  placeholder="Введите сообщение длинной до 1000 символов"
+                  th:field="*{comment}"
+                />
+                <div class="card-body text-end mt-2">
+                  <a class="btn btn-secondary" id="hideAlertCensus">Отмена</a>
+                  <input
+                    class="btn btn-danger"
+                    type="submit"
+                    value="Отправить"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div
+          class="alert alert-light alert-dismissable tax"
+          style="display: none"
+        >
+          <div class="card border-dark" style="width: 36rem">
+            <div class="card-body justify-content-center">
+              <h3 class="card-title text-center">Сбор подати</h3>
+              <form
+                th:object="${tax}"
+                th:action="${'/tax/create'}"
+                method="post"
+              >
+                <p class="fw-bold fs-6">Сроки проведение сбора подати:</p>
+                <div class="row">
+                  <div class="col">
+                    <label
+                      >С
+                      <input type="date" th:field="*{dateBegin}" />
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label
+                      >По
+                      <input type="date" th:field="*{dateEnd}" />
+                    </label>
+                  </div>
+                </div>
+                <label>Налог</label>
+                <div class="input-group mt-2">
+                  <select th:field="*{taxType}" class="form-control">
+                    <div th:each="taxType: ${taxTypes}">
+                      <option
+                        th:value="${taxType.id}"
+                        th:text="${taxType.name}"
+                      />
                     </div>
+                  </select>
                 </div>
-            </div>
-        </div>
-        <div  th:if="${unfinishedTax==null}" class="card border-dark" style="width: 36rem;">
-            <div class="card-body">
-                <h3 class="card-title text-center">Сбор подати</h3>
-                <div class="form-group pt-1 d-flex justify-content-center">
-                    <input th:if="${unfinishedCensus==null}" class="btn btn-danger" id="showAlertTax" value="Издать указ о сборе подати">
-                    <div th:if="${unfinishedCensus!=null}" class="justify-content-center text-center">
-                        <input class="btn btn-secondary" value="Издать указ о сборе подати" disabled>
-                        <p class="fw-bold fs-6 text-danger">В данный момент уже производится перепись населения</p>
-                    </div>
+                <input
+                  class="form-control mt-1"
+                  type="text"
+                  placeholder="Введите сообщение длинной до 1000 символов"
+                  th:field="*{comment}"
+                />
+                <div class="card-body text-end mt-2">
+                  <a class="btn btn-secondary" id="hideAlertTax">Отмена</a>
+                  <input
+                    class="btn btn-danger"
+                    type="submit"
+                    value="Отправить"
+                  />
                 </div>
+              </form>
             </div>
+          </div>
         </div>
-        <div th:if="${unfinishedTax!=null}" class="card border-dark" style="width: 36rem;">
-            <div class="card-body">
-                <h3 class="card-title text-center">Сбор подати</h3>
-                <div class="justify-content-center text-center">
-                    <p class="fw-bold fs-6 card-text">
-                        Дата начала сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateBegin}"></span>
-                    </p>
-                    <p class="fw-bold fs-6 card-text">
-                        Дата завершения сбора: <span class="fw-bold fs-6" th:text="${unfinishedTax.dateEnd}"></span>
-                    </p>
-                    <table class="table table-bordered">
-                        <tbody th:each="taxRegion : ${taxRegions}">
-                        <tr th:classappend="|${taxRegion.status=='created' ? 'bg-light' : ''} ${taxRegion.status=='submitted' ? 'bg-success' : 'bg-warning'}|">
-                            <td class="justify-content-center text-center">
-                                <p>
-                                    <span class="fw-normal fs-5" th:text="${taxRegion.region.name}"></span>
-                                </p>
-                            </td>
-                            <td th:if="${taxRegion.status == 'submitting'}">
-                                <div class="btn-group">
-                                    <form method="post" th:action="${'/tax/submitRegion'}">
-                                        <button type="submit" name="taxSubmit">
-                                            <img src="/images/submit.png"/>
-                                            <input type="hidden" th:value="${taxRegion.id}" name="taxRegion">
-                                            <input type="hidden" th:value="${unfinishedTax.id}" name="tax">
-                                        </button>
-                                    </form>
-                                    <form method="post" th:action="${'/tax/unsubmitRegion'}">
-                                        <button type="submit">
-                                            <img src="/images/decline.png"/>
-                                            <input type="hidden" th:value="${taxRegion.id}" name="taxRegion">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <form th:action="${'/tax/finish'}" method="post">
-                        <input class="btn btn-danger" value="Завершить" type="submit">
-                        <input type="hidden" th:value="${unfinishedTax.id}" name="tax">
-                    </form>
-                    <form th:action="${'/tax/delete'}" class="mt-1" method="post">
-                        <input class="btn btn-secondary" value="Отменить сбор" type="submit">
-                        <input type="hidden" th:value="${unfinishedTax.id}" name="tax">
-                    </form>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="card-group mt-3">
-        <div class="alert alert-light alert-dismissable census" style="display: none">
-            <div class="card border-dark" style="width: 36rem;">
-                <div class="card-body justify-content-center">
-                    <h3 class="card-title text-center">Перепись населения</h3>
-                    <form th:object="${census}" th:action="${'/census/create'}" method="post">
-                        <p class="fw-bold fs-6">Сроки проведение переписи: </p>
-                        <div class="row">
-                            <div class="col">
-                                <label>С
-                                    <input type="date" th:field="*{dateBegin}"/>
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>По
-                                    <input type="date" th:field="*{dateEnd}"/>
-                                </label>
-                            </div>
-                        </div>
-                        <input class="form-control mt-1" type="text" placeholder="Введите сообщение длинной до 1000 символов" th:field="*{comment}">
-                        <div class="card-body text-end mt-2">
-                            <a class="btn btn-secondary" id="hideAlertCensus">Отмена</a>
-                            <input class="btn btn-danger" type="submit" value="Отправить"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="alert alert-light alert-dismissable tax" style="display: none">
-            <div class="card border-dark" style="width: 36rem;">
-                <div class="card-body justify-content-center">
-                    <h3 class="card-title text-center">Сбор подати</h3>
-                    <form th:object="${tax}" th:action="${'/tax/create'}" method="post">
-                        <p class="fw-bold fs-6">Сроки проведение сбора подати: </p>
-                        <div class="row">
-                            <div class="col">
-                                <label>С
-                                    <input type="date" th:field="*{dateBegin}"/>
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>По
-                                    <input type="date" th:field="*{dateEnd}"/>
-                                </label>
-                            </div>
-                        </div>
-                        <label>Налог</label>
-                        <div class="input-group mt-2">
-                            <select th:field="*{taxType}" class="form-control">
-                                <div th:each="taxType: ${taxTypes}">
-                                    <option th:value="${taxType.id}" th:text="${taxType.name}"/>
-                                </div>
-                            </select>
-                        </div>
-                        <input class="form-control mt-1" type="text" placeholder="Введите сообщение длинной до 1000 символов" th:field="*{comment}">
-                        <div class="card-body text-end mt-2">
-                            <a class="btn btn-secondary" id="hideAlertTax">Отмена</a>
-                            <input class="btn btn-danger" type="submit" value="Отправить"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-<script>
+  </body>
+  <script>
     $("#showAlertCensus").click(function () {
-        if ($(".census").is(":hidden")) {
-            $(".census").hide().show('medium');
-        }
+      if ($(".census").is(":hidden")) {
+        $(".census").hide().show("medium");
+      }
     });
-</script>
-<script>
+  </script>
+  <script>
     $("#hideAlertCensus").click(function () {
-        $(".census").show().hide('medium');
+      $(".census").show().hide("medium");
     });
-</script>
-<script>
+  </script>
+  <script>
     $("#showAlertTax").click(function () {
-        if ($(".tax").is(":hidden")) {
-            $(".tax").hide().show('medium');
-        }
+      if ($(".tax").is(":hidden")) {
+        $(".tax").hide().show("medium");
+      }
     });
-</script>
-<script>
+  </script>
+  <script>
     $("#hideAlertTax").click(function () {
-        $(".tax").show().hide('medium');
+      $(".tax").show().hide("medium");
     });
-</script>
+  </script>
 </html>

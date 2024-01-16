@@ -15,7 +15,7 @@
             <th scope="col" class="text-white text-center">Округ</th>
             <th scope="col" class="text-white text-center">Население</th>
             <th scope="col" class="text-white text-center">Число хозяйств</th>
-            <th scope="col" class="text-white text-center">Средник годовой доход хозяйства, L</th>
+            <th scope="col" class="text-white text-center">Средний годовой доход хозяйства, L</th>
             <th scope="col" class="text-white text-center">Жителей на хозяйство</th>
             <th scope="col" class="text-white text-center">Среднее поголовье КРС</th>
         </tr>
@@ -25,7 +25,7 @@
             <td class="text-black" th:text="${district.name}"></td>
             <td class="text-black" th:text="${district.totalResidents}"></td>
             <td class="text-black" th:text="${district.totalHouseholds}"></td>
-            <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalTaxesPaid/district.totalHouseholds}"></p></td>
+            <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalIncome/district.totalHouseholds}"></p></td>
             <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalResidents/district.totalHouseholds}"></p></td>
             <td class="text-black"><p th:if="${district.totalHouseholds!=0}" th:text="${district.totalCattleHeadcount/district.totalHouseholds}"></p></td>
         </tr>
