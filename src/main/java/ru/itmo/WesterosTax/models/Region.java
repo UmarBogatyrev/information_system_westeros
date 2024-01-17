@@ -24,6 +24,8 @@ public class Region {
 
     private int totalResidents;
 
+    private double totalIncome;
+
     private double totalTaxesPaid;
 
     @ManyToOne
@@ -82,6 +84,14 @@ public class Region {
 
     public void setTotalTaxesPaid(double totalTaxesPaid) {
         this.totalTaxesPaid = totalTaxesPaid;
+    }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome = totalIncome;
     }
 
     public User getLord() {

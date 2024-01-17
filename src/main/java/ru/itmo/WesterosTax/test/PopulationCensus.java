@@ -143,10 +143,11 @@ public class PopulationCensus {
         // Пауза в 3 секунды
         // Thread.sleep(3000);
 
-        WebElement taxNameInput = driver.findElement(By.name("taxesCollected"));
-        // Очищаем текущее значение
-        taxNameInput.clear();
-        taxNameInput.sendKeys("1256");
+        // Убрал это поле, возможно временно
+        // WebElement taxNameInput = driver.findElement(By.name("taxesCollected"));
+        // // Очищаем текущее значение
+        // taxNameInput.clear();
+        // taxNameInput.sendKeys("1256");
 
         // Пауза в 3 секунды
         // Thread.sleep(3000);

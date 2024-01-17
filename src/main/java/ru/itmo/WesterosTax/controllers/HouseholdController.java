@@ -30,9 +30,11 @@ public class HouseholdController {
 
     private final TaxRepository taxRepository;
 
+    private final TaxTypeRepository taxTypeRepository;
+
     public HouseholdController(UserRepository userRepository, HouseholdRepository householdRepository, DistrictRepository districtRepository,
                                RegionRepository regionRepository, CensusRepository censusRepository, CensusDistrictRepository censusDistrictRepository,
-                               TaxDistrictRepository taxDistrictRepository, TaxRepository taxRepository) {
+                               TaxDistrictRepository taxDistrictRepository, TaxRepository taxRepository, TaxTypeRepository taxTypeRepository) {
         this.userRepository = userRepository;
         this.householdRepository = householdRepository;
         this.districtRepository = districtRepository;
@@ -41,6 +43,7 @@ public class HouseholdController {
         this.censusDistrictRepository = censusDistrictRepository;
         this.taxDistrictRepository = taxDistrictRepository;
         this.taxRepository = taxRepository;
+        this.taxTypeRepository = taxTypeRepository;
     }
 
     @GetMapping("index")
@@ -54,6 +57,11 @@ public class HouseholdController {
         }
         if (unfinishedTax != null) {
             model.addAttribute("unfinishedTax", unfinishedTax);
+            Long taxTypeId = unfinishedTax.getTaxType().getId();
+            String formula = taxTypeRepository.findFormulaById(taxTypeId);
+
+            int formulaInt = Integer.parseInt(formula);
+            model.addAttribute("taxFormula", formulaInt);
         }
         CensusDistrict censusDistrict = censusDistrictRepository.findByCensusRegionCensusAndDistrict(unfinishedCensus, courier.getDistrict());
         TaxDistrict taxDistrict = taxDistrictRepository.findByTaxRegionTaxAndDistrict(unfinishedTax, courier.getDistrict());
