@@ -131,6 +131,13 @@
                 th:text="${unfinishedTax.dateEnd}"
               ></span>
             </p>
+            <p class="fw-bold fs-6 card-text">
+              налог:
+              <span
+                class="fw-bold fs-6"
+                th:text="${taxFormula} + '%' + ' от (КРС + ПД + КЖ) в золотых'"
+              ></span>
+            </p>
           </div>
         </div>
       </div>

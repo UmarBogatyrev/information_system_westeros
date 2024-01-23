@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.itmo.WesterosTax.models.*;
 import ru.itmo.WesterosTax.repositories.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javax.validation.Valid;
 
 @RequestMapping("/tax")
@@ -64,13 +67,14 @@ public class TaxController {
         for (Household household : households) {
             double sum = household.getLandArea() + household.getCattleHeadcount() + household.getResidentCount();
             double dividedBy100 = sum / 100.0;
-            double result = Math.abs(dividedBy100 * (100.0 - Double.parseDouble(formula)));
+            double result = Math.abs(dividedBy100 * Double.parseDouble(formula));
 
+            // Округление с ограничением до 1 знака после запятой
+            BigDecimal roundedResult = BigDecimal.valueOf(result).setScale(1, RoundingMode.HALF_UP);
             // taxDistrict.setTotalIncome(household.getIncome());
             double currentTotalIncome = taxDistrict.getTotalIncome(); // получить текущее значение
-            double newTotalIncome = currentTotalIncome + result; // добавить новое значение
+            double newTotalIncome = currentTotalIncome + roundedResult.doubleValue(); // добавить новое значение
             taxDistrict.setTotalIncome(newTotalIncome); // установить результат обратно
-
             taxDistrict.setStatus("submitting");
         }
         taxDistrictRepository.save(taxDistrict);
