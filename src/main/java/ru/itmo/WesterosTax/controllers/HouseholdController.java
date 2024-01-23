@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.itmo.WesterosTax.models.*;
 import ru.itmo.WesterosTax.repositories.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javax.validation.Valid;
 
 @RequestMapping("/household")
@@ -52,6 +55,8 @@ public class HouseholdController {
         User lord = courier.getLandowner().getLord();
         Tax unfinishedTax = taxRepository.findByTaxTypeLordAndFinished(lord, false);
         Census unfinishedCensus = censusRepository.findByLordAndFinished(lord, false);
+        Iterable<Household> households = courier.getDistrict().getHouseholds();
+
         if (unfinishedCensus != null) {
             model.addAttribute("unfinishedCensus", unfinishedCensus);
         }
@@ -62,6 +67,14 @@ public class HouseholdController {
 
             int formulaInt = Integer.parseInt(formula);
             model.addAttribute("taxFormula", formulaInt);
+
+            for (Household household : households) {
+                double sum = household.getLandArea() + household.getCattleHeadcount() + household.getResidentCount();
+                double dividedBy100 = sum / 100.0;
+                double result = Math.abs(dividedBy100 * Double.parseDouble(formula));
+                BigDecimal roundedResult = BigDecimal.valueOf(result).setScale(1, RoundingMode.HALF_UP);
+                household.setTaxesCollected(roundedResult.doubleValue());
+            }
         }
         CensusDistrict censusDistrict = censusDistrictRepository.findByCensusRegionCensusAndDistrict(unfinishedCensus, courier.getDistrict());
         TaxDistrict taxDistrict = taxDistrictRepository.findByTaxRegionTaxAndDistrict(unfinishedTax, courier.getDistrict());

@@ -104,7 +104,7 @@
                 Вам следует прибыть в указанное место к началу сбора
             </p>
             <p class="fw-bold fs-6 card-text">
-                Формула для расчета налога: <span class="fw-bold fs-6" th:text="'(КРС + ПД + КЖ) * ' + ${taxFormula} + '%'"></span>
+                налог: <span class="fw-bold fs-6" th:text="${taxFormula} + '%' + ' от (КРС + ПД + КЖ) в золотых'"></span>
             </p>
             <p class="fw-bold fs-6 card-text">
                 КРС - поголовье крупного рогатого скота<br>
@@ -134,7 +134,7 @@
                 </td> -->
                 <td class="text-black" th:text="${household.name}"></td>
                 <td class="text-black" th:text="${household.address}"></td>
-                <td class="text-black" th:text="${(household.cattleHeadcount + household.landArea + household.residentCount) / 100 * (100-taxFormula)}"></td>
+                <td class="text-black" th:text="${household.taxesCollected}"></td>
             </tr>
             </tbody>
         </table>
